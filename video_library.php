@@ -61,10 +61,16 @@ function video_library_module_init_menu_items()
             'position' => 10,
         ]);
         $CI->app_menu->add_setup_children_item('Video_lib_setup', [
-            'slug' => 'Video_lib_setup-groups',
+            'slug' => 'video_lib_setup-groups',
             'name' => _l('Google Drive'),
             'href' => admin_url('video_library/video_drive_setup'),
             'position' => 5,
+        ]);
+        $CI->app_menu->add_setup_children_item('Video_lib_setup', [
+            'slug' => 'Video_lib_setup-groups_type',
+            'name' => _l('vl_allowed_file_type'),
+            'href' => admin_url('video_library/video_allowed_type_setup'),
+            'position' => 10,
         ]);
     }
     if (has_permission('video_library', '', 'view_own') || has_permission('video_library', '', 'view')) {
