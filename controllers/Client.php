@@ -70,11 +70,11 @@ public function search_category_data()
         </a>';
         $data .= '<div class="card">';
         $data .= '<video width="640" height="320" controls id="myVideo_'. $data_show['id'] .'" style="display:none;">';
-        $data .= '<source src="'. base_url().'uploads/video_library/'. $data_show['upload_video'] .'" type="video/mp4">';
+        $data .= '<source src="'. $data_show['upload_type'] == 'file' ? base_url().'uploads/video_library/'. $data_show['upload_video'] : $data_show['upload_video'] .'" type="video/mp4">';
         $data .= '</video>
         </div>
         </div>';
-        $discussion_count = video_discussion_count($aRow['video_id']);
+        $discussion_count = video_discussion_count($data_show['video_id']);
         $data .= ' <div class="video_cat">';
         $data .= ' <p>'. $data_show['description'].'</p>';
         $data .= '</div>

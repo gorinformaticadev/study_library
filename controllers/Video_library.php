@@ -119,9 +119,6 @@ class Video_library extends AdminController
     }
 
 
-
-
-
     public function search_category_data()
     {
         $post_data['categories'] = $this->input->post('categories');
@@ -149,7 +146,8 @@ class Video_library extends AdminController
                 </div>';
             }
             $data .= '</div><h1>' . $data_show['title'] . '</h1>';
-            $data .= '<a class="player_btn" data-fancybox href="#myVideo_' . $data_show['id'] . '">';
+
+            $data .= '<a class="player_btn" data-fancybox href="' .$data_show['upload_type'] == 'file' ?  '#myVideo_' . $data_show['id'] :  $data_show['upload_video']. '">';
             $data .= '<span>
             <img src="' . base_url('modules/video_library/assets/image/youtube_thumb.png') . '" alt="img not found"/>
             </span>
@@ -389,6 +387,17 @@ class Video_library extends AdminController
             if (true) {
                 set_alert('success', _l('vl_credentials'));
                 redirect(admin_url('video_library/video_drive_setup'));
+            }
+        }
+    }
+    public function video_allowed_type_setup(){
+        $this->load->view('admin/libraries/video_allowed_type_setup');
+        if($this->input->post()){
+            $val=$this->input->post();
+            update_option('vl_allowed_type',$val['vl_allowed_type'],1);
+            if(true){
+                set_alert('success', _l('Allowed type updated successfully!'));
+                redirect(admin_url('video_library/video_allowed_type_setup'));
             }
         }
     }

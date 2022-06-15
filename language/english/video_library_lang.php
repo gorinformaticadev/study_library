@@ -34,6 +34,9 @@ $lang['vl_link_url']                     = 'URL';
 $lang['vl_credentials']                     = 'Your Credentials updated Successfully';
 $lang['vl_link_url_placeholder']                     = 'Enter Youtube/Vimeo Links';
 
+$lang['vl_setup_name']                     = 'Allowed Types';
+$lang['vl_allowed_type']                     = 'Enter allowed type';
+$lang['vl_allowed_file_type']                     = 'Allowed file type';
 
 
 

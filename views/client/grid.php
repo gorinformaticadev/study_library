@@ -68,15 +68,14 @@ $this->pagination->initialize($config);
           <div class="v_o_wr">
             <div class="wrap_video_cl">
                  <h1><?= $aRow['title']?></h1>
-
-                 <a class="player_btn" data-fancybox href="#myVideo_<?php echo $aRow['video_id'] ?>">
+                 <a class="player_btn" data-fancybox href="<?php echo $aRow['upload_type'] == 'file' ? '#myVideo_'.$aRow['video_id'] : $aRow['upload_video'] ?>">
                   <span>
                     <img src="<?php echo base_url('modules/video_library/assets/image/youtube_thumb.png'); ?>" alt="img not found"/>
                   </span>
                 </a>
                 <div class="card">
                   <video width="640" height="320" controls id="myVideo_<?php echo $aRow['video_id'] ?>" style="display:none;">
-                    <source src="<?= base_url().'uploads/video_library/'. $aRow['upload_video'];?>" type="video/mp4">
+                  <source src="<?= $aRow['upload_type'] == 'file' ? base_url().'uploads/video_library/'. $aRow['upload_video'] : $aRow['upload_video'];?>" type="video/mp4">
                     </video>
                   </div>
                 </div>

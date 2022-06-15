@@ -271,14 +271,13 @@ function handle_video_comment_attachments($discussion_id, $post_data, $insert_da
 function handle_video_library_video_upload($vlid = '')
 {
     if (is_numeric($vlid)) {
+        $vl_allowed_type = explode(',', get_option('vl_allowed_type'));
         if (isset($_FILES['upload_video']['name']) && $_FILES['upload_video']['name'] != '') {
             $path = get_upload_path_by_type('video_library');
             $tmpFilePath = $_FILES['upload_video']['tmp_name'];
             if (!empty($tmpFilePath) && $tmpFilePath != '') {
                 $extension          = strtolower(pathinfo($_FILES['upload_video']['name'], PATHINFO_EXTENSION));
-                $allowed_extensions = [
-                    'mp4',
-                ];
+                $allowed_extensions = $vl_allowed_type;
                 if (!in_array($extension, $allowed_extensions)) {
                     set_alert('warning', _l('file_php_extension_blocked'));
                     return false;
