@@ -72,6 +72,12 @@ function video_library_module_init_menu_items()
             'href' => admin_url('video_library/video_allowed_type_setup'),
             'position' => 10,
         ]);
+        $CI->app_menu->add_setup_children_item('Video_lib_setup', [
+            'slug' => 'Video_lib_setup-groups_type',
+            'name' => _l('vl_thumbnail'),
+            'href' => admin_url('video_library/video_thumbnail'),
+            'position' => 10,
+        ]);
     }
     if (has_permission('video_library', '', 'view_own') || has_permission('video_library', '', 'view')) {
         $CI->app_menu->add_sidebar_menu_item('video_library', [

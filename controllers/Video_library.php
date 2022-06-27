@@ -401,4 +401,32 @@ class Video_library extends AdminController
             }
         }
     }
+     /*Video Thumbnail*/
+     public function video_thumbnail(){
+        $this->load->view('admin/libraries/video_thumbnail');
+        $thumbnail_image_Uploaded = (thumbnail_image_upload() ? true : false);
+        if ($thumbnail_image_Uploaded) {
+            set_alert('success', _l('settings_updated'));
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+       
+    }
+    / Remove Thumbnail Image / ajax /
+    public function remove_thumbnail_image($type = '')
+    {
+        hooks()->do_action('before_remove_company_logo');
+
+        if (!has_permission('settings', '', 'delete')) {
+            access_denied('settings');
+        }
+
+        $logoName = get_option('thumbnail_image');
+        $path = get_upload_path_by_type('company') . '/' . $logoName;
+        if (file_exists($path)) {
+            unlink($path);
+        }
+
+        update_option('thumbnail_image', '');
+        redirect($_SERVER['HTTP_REFERER']);
+    }
 }

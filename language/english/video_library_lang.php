@@ -37,6 +37,8 @@ $lang['vl_link_url_placeholder']                     = 'Enter Youtube/Vimeo Link
 $lang['vl_setup_name']                     = 'Allowed Types';
 $lang['vl_allowed_type']                     = 'Enter allowed type';
 $lang['vl_allowed_file_type']                     = 'Allowed file type';
+$lang['vl_thumbnail']                             = 'Video Thumbnail';
+$lang['remove_thumbnail_tooltip']                             = 'Remove Video Thumbnail';
 
 
 

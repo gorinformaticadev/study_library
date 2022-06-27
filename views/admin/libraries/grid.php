@@ -1,4 +1,13 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+ $thumbnail_image = get_option('thumbnail_image'); 
+if($thumbnail_image) {?>
+<style>
+ .wrap_video_cl
+          {   
+             background-image: url(<?php echo base_url('uploads/company/'.$thumbnail_image); ?>);
+            }
+</style>
+<?php }
 $CI     = & get_instance();
 $start  = intval($CI->input->post('start'));
 $length = intval($CI->input->post('length'));
