@@ -411,7 +411,7 @@ class Video_library extends AdminController
         }
        
     }
-    / Remove Thumbnail Image / ajax /
+    /* Remove Thumbnail Image / ajax */
     public function remove_thumbnail_image($type = '')
     {
         hooks()->do_action('before_remove_company_logo');
