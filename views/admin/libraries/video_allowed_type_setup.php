@@ -13,7 +13,7 @@
                         echo form_open_multipart($this->uri->uri_string(), array('id' => 'allowed_type'));
                         ?>
                         <?php
-                        echo render_input('vl_allowed_type', _l('vl_allowed_file_type'), $vl_allowed_type, '', ['placeholder' => _l('')]);
+                        echo render_input('vl_allowed_type', _l('vl_allowed_file_type'), $vl_allowed_type, '', ['placeholder' => _l('vl_allowed_file_type_name')]);
                 
                         ?>
                         <button type="submit" class="btn btn-info pull-right save_vl_btn" data-><?php echo _l('submit'); ?></button>

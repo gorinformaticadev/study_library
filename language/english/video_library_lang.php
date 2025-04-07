@@ -14,6 +14,8 @@ $lang['vl_video_not_deleted']                      = 'Video not delete!';
 $lang['vl_video_deleted']                      = 'Video deleted!';
 $lang['new_video_library_added_alert']                      = 'Video added!';
 $lang['new_video_library_added_failed_alert']                      = 'Video addition failed!';
+$lang['new_video_library_edited_alert']                      = 'Video updated!';
+$lang['new_video_library_update_failed_alert']                      = 'Video update failed!';
 $lang['vl_projects']                      = 'Related to Project';
 $lang['vl_add_category']                  = 'Add category';
 ## version 101
@@ -36,9 +38,11 @@ $lang['vl_link_url_placeholder']                     = 'Enter Youtube/Vimeo Link
 
 $lang['vl_setup_name']                     = 'Allowed Types';
 $lang['vl_allowed_type']                     = 'Enter allowed type';
-$lang['vl_allowed_file_type']                     = 'Allowed file type';
+$lang['vl_allowed_file_type']                     = 'Allowed video file type';
+$lang['vl_allowed_file_type_name']                     = '.mp4,.mkv';
 $lang['vl_thumbnail']                             = 'Video Thumbnail';
 $lang['remove_thumbnail_tooltip']                             = 'Remove Video Thumbnail';
+$lang['vl_video_thumbnail']                             = 'Add Thumbnail';
 
 
 

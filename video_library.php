@@ -2,7 +2,7 @@
 /*
 Module Name: Video Library Module
 Description: Video Library For Training 
-Version: 1.0.1
+Version: 1.0.2
 Author: Zonvoir
 Author URI: https://zonvoir.com/
 Requires at least: 2.3.*
@@ -125,11 +125,11 @@ hooks()->add_action('app_customers_head', 'video_library_customer_project_tabs')
 function video_library_customer_project_tabs()
 {
     $CI = &get_instance();
-    if ($CI->uri->segment(2) == 'project') {
+    if (is_client_logged_in() && ($CI->uri->segment(2) == 'projects' || $CI->uri->segment(2) == 'project')) {
         $project_id = $CI->uri->segment(3); ?>
         <script type="text/javascript">
             $(document).ready(function() {
-                var node = '<li role="presentation" class="project_tab_video_library"><a data-group="project_video_library" href="<?php echo site_url('admin/video_library/client/project/' . $project_id); ?>?group=video_library" role="tab"><i class="fa fa-video-camera" aria-hidden="true"></i> <?php echo _l('vl_video_library'); ?> </a></li>';
+                var node = '<li role="presentation" class="project_tab_video_library"><a data-group="project_video_library" href="<?php echo site_url('video_library/client/project/' . $project_id); ?>?group=video_library" role="tab"><i class="fa fa-video-camera" aria-hidden="true"></i> <?php echo _l('vl_video_library'); ?> </a></li>';
                 $('.nav-tabs').append(node);
             });
         </script>

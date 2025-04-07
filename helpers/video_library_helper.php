@@ -9,8 +9,8 @@ function prepare_grid_query_for_video_library($aColumns, $sIndexColumn, $sTable,
     $havingCount = '';
     $sLimit = '';
     if ((is_numeric($CI
-        ->input
-        ->post('start', true))) && $CI
+            ->input
+            ->post('start', true))) && $CI
         ->input
         ->post('length', true) != '-1'
     ) {
@@ -67,7 +67,8 @@ function prepare_grid_query_for_video_library($aColumns, $sIndexColumn, $sTable,
             $sOrder = '';
         }
         $sOrder = rtrim($sOrder, ', ');
-        if (get_option('save_last_order_for_tables') == '1' && $CI
+        if (
+            get_option('save_last_order_for_tables') == '1' && $CI
             ->input
             ->post('last_order_identifier', true) && $CI
             ->input
@@ -227,7 +228,8 @@ function handle_video_library_video_upload($vlid = '')
             $path = get_upload_path_by_type('video_library');
             $tmpFilePath = $_FILES['upload_video']['tmp_name'];
             if (!empty($tmpFilePath) && $tmpFilePath != '') {
-                $extension          = strtolower(pathinfo($_FILES['upload_video']['name'], PATHINFO_EXTENSION));
+                $extension = '.';
+                $extension .= strtolower(pathinfo($_FILES['upload_video']['name'], PATHINFO_EXTENSION));
                 $allowed_extensions = $vl_allowed_type;
                 if (!in_array($extension, $allowed_extensions)) {
                     set_alert('warning', _l('file_php_extension_blocked'));
@@ -321,4 +323,41 @@ function thumbnail_image_upload()
         }
     }
     return $success;
+}
+
+function handle_video_library_video_thumbnail_upload($vlid = '')
+{
+    if (is_numeric($vlid)) {
+        $allowed_extensions = ['jpg','jpeg','gif','png','bmp'];
+        if (isset($_FILES['upload_video_thumbnail']['name']) && $_FILES['upload_video_thumbnail']['name'] != '') {
+            $path = get_upload_path_by_type('video_library');
+            $tmpFilePath = $_FILES['upload_video_thumbnail']['tmp_name'];
+            if (!empty($tmpFilePath) && $tmpFilePath != '') {
+                $extension = strtolower(pathinfo($_FILES['upload_video_thumbnail']['name'], PATHINFO_EXTENSION));
+                if (in_array($extension, $allowed_extensions)) {
+                    _maybe_create_upload_path($path);
+                    $filename    = unique_filename($path, $_FILES['upload_video_thumbnail']['name']);
+                    $newFilePath = $path . $filename;
+                    if (move_uploaded_file($tmpFilePath, $newFilePath)) {
+                        $CI             = &get_instance();
+                        $CI->db->where('id', $vlid);
+                        $CI->db->update(db_prefix() . 'upload_video', [
+                            'upload_video_thumbnail' => $filename,
+                        ]);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+    }
+
+    return false;
+}
+function get_upload_thumbnail($id)
+{
+    $CI = &get_instance();
+    $CI->db->select('upload_video_thumbnail');
+    $CI->db->where('id', $id);
+    return $CI->db->get(db_prefix() . 'upload_video')->row();
 }

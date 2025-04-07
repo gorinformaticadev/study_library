@@ -58,6 +58,9 @@ class Video_library_modal extends App_Model
         if (!empty($data['title'])) {
             $this->db->like('title', $data['title']);
         }
+        if (!empty($data['project_id'])) {
+            $this->db->where(['project_id' => $data['project_id']]);
+        }
         $this->db->order_by('id', 'desc');
         $data = $this->db->get()->result_array();
         return $data;
@@ -85,17 +88,27 @@ class Video_library_modal extends App_Model
                 $this->db->where('id', $edit_id);
                 $this->db->update(db_prefix() . 'upload_video', ['upload_video' => NULL]);
                 return true;
+            }else{
+                $this->db->where('id', $edit_id);
+                $this->db->update(db_prefix() . 'upload_video', ['upload_video' => '']);
+                return true;
             }
         }
     }
     public function update_video($video_data, $vdo_id)
     {
-        if (isset($video_data['link'])) {
+        $this->db->select('upload_video');
+        $this->db->where('id', $vdo_id);
+        $this->db->where('upload_type', 'link');
+        $contact = $this->db->get(db_prefix() . 'upload_video')->row();
+        if (!empty($video_data['link']) && !isset($contact)) {
             $video_data['upload_video'] = $video_data['link'];
+            $this->db->where('id', $vdo_id);
+            $q = $this->db->update(db_prefix() . 'upload_video', ['upload_video' => $video_data['upload_video']]);
             unset($video_data['link']);
         }
         $this->db->where('id', $vdo_id);
-        $q = $this->db->update(db_prefix() . 'upload_video', $video_data);
+        $q = $this->db->update(db_prefix() . 'upload_video', ['title' => $video_data['title'],'category' => $video_data['category'],'upload_type' => $video_data['upload_type'],'description' => $video_data['description'],'project_id' => $video_data['project_id']]);
         if ($q) {
             return true;
         } else {
@@ -392,5 +405,17 @@ Drive Upload Update
     {
         $this->db->where('id', $vi_id);
         return $this->db->update(db_prefix() . 'upload_video', ['google_drive_upload_id' => $drive_file_meta['id']]);
+    }
+    public function delete_video_thumbnail_file($edit_id)
+    {
+        $data = $this->db->select('*')->from(db_prefix() . 'upload_video')->where('id', $edit_id)->get()->row();
+        if (isset($data) && !empty($data)) {
+            if (is_file(VIDEO_LIBRARY_UPLOADS_FOLDER . $data->upload_video_thumbnail)) {
+                unlink(VIDEO_LIBRARY_UPLOADS_FOLDER . $data->upload_video_thumbnail);
+                $this->db->where('id', $edit_id);
+                $this->db->update(db_prefix() . 'upload_video', ['upload_video_thumbnail' => NULL]);
+                return true;
+            }
+        }
     }
 }

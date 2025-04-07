@@ -10,6 +10,7 @@ $aColumns = [
   db_prefix().'upload_video.upload_video as upload_video',
   db_prefix().'video_category.category as video_category',
   db_prefix().'upload_video.description as description',
+  'upload_type'
 ];
 $sIndexColumn = 'id';
 $sTable       = db_prefix() . 'upload_video';

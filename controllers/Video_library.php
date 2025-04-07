@@ -74,14 +74,16 @@ class Video_library extends AdminController
                 $post_data = $this->input->post();
                 $this->video_library_modal->update_video($post_data, $id);
                 if ($id) {
+                    if (isset($_FILES['upload_video_thumbnail'])) {
+                        handle_video_library_video_thumbnail_upload($id);
+                    }
                     if (isset($_FILES['upload_video'])) {
                         handle_video_library_video_upload($id);
                     }
-
-                    set_alert('success', _l('new_video_library_added_alert'));
+                    set_alert('success', _l('new_video_library_edited_alert'));
                     redirect(admin_url('video_library'));
                 } else {
-                    set_alert('danger', _l('new_video_library_added_failed_alert'));
+                    set_alert('danger', _l('new_video_library_update_failed_alert'));
                     redirect(admin_url('video_library'));
                 }
             }
@@ -93,6 +95,9 @@ class Video_library extends AdminController
                 $post_data = $this->input->post();
                 $id = $this->video_library_modal->upload_video($post_data);
                 if ($id) {
+                    if (isset($_FILES['upload_video_thumbnail'])) {
+                        handle_video_library_video_thumbnail_upload($id);
+                    }
                     $this->session->set_userdata('v_id', $id);
                     handle_video_library_video_upload($id);
                     if ($id) {
@@ -123,41 +128,60 @@ class Video_library extends AdminController
     {
         $post_data['categories'] = $this->input->post('categories');
         $post_data['title'] = $this->input->post('title');
+        if($this->input->post('project_id')){
+            $post_data['project_id'] = $this->input->post('project_id');
+        }
         $result = $this->video_library_modal->search_title_category($post_data);
+        $thumbnail_image = get_option('thumbnail_image'); 
         $data = '<div class="row">';
         foreach ($result as $data_show) {
+            $val = get_upload_thumbnail($data_show['id']);
+            if (isset($val) && !empty($val->upload_video_thumbnail)) {
+                $tp = base_url() . 'uploads/video_library/' . $val->upload_video_thumbnail;
+            } elseif ($thumbnail_image) {
+                $tp =  base_url() . 'uploads/company/' . $thumbnail_image;
+            } else {
+                $tp =  base_url() . 'modules/video_library/assets/image/grid_back.png';
+            }
+            $hrefAttr = admin_url('video_library/add_video/' . $data_show['id']);
             $data .= ' <div class="col-md-4">
             <div class="v_o_wr">
-            <div class="wrap_video_cl">
+            <div class="wrap_video_cl" style="background-image: url(' . $tp . ');">
             <div class="actn_edit">';
-            if (has_permission('video_library', '', 'delete') && has_permission('video_library', '', 'view')) {
+            if (has_permission('video_library', '', 'delete')) {
                 $data .=  '<div class="wrap_actn_b"> <a class="trash_btn_c" href="' . admin_url('video_library/delete_video/') . $data_show['id'] . ' ">';
                 $data .=  '<span>
                 <i class="fa fa-trash-o" aria-hidden="true"></i> </span> delete 
                 </a>
                 </div>';
             }
-            if (has_permission('video_library', '', 'edit') && has_permission('video_library', '', 'view')) {
+            if (has_permission('video_library', '', 'edit')) {
                 $data .= '<div class="wrap_actn_b">';
-                $data .= '<a class="pencil_btn_c" href="' . admin_url('video_library/edit_video/') . $data_show['id'] . '">';
+                $data .= '<a class="pencil_btn_c" href="' . admin_url('video_library/add_video/') . $data_show['id'] . '">';
                 $data .= '<span>
                 <i class="fa fa-pencil" aria-hidden="true"></i></span> edit
                 </a>
                 </div>';
             }
             $data .= '</div><h1>' . $data_show['title'] . '</h1>';
-
-            $data .= '<a class="player_btn" data-fancybox href="' .$data_show['upload_type'] == 'file' ?  '#myVideo_' . $data_show['id'] :  $data_show['upload_video']. '">';
-            $data .= '<span>
-            <img src="' . base_url('modules/video_library/assets/image/youtube_thumb.png') . '" alt="img not found"/>
-            </span>
-            </a>';
-            $data .= '<div class="card">';
-            $data .= '<video width="640" height="320" controls id="myVideo_' . $data_show['id'] . '" style="display:none;">';
-            $data .= '<source src="' . base_url() . 'uploads/video_library/' . $data_show['upload_video'] . '" type="video/mp4">';
-            $data .= '</video>
-            </div>
-            </div>';
+            if($aRow['upload_type'] == 'file'){
+                $data .= '<a class="player_btn" data-fancybox href="#myVideo_' . $data_show['id'].'">';
+                $data .= '<span>
+                <img src="' . base_url('modules/video_library/assets/image/youtube_thumb.png') . '" alt="img not found"/>
+                </span>
+                </a>';
+                $data .= '<div class="card">';
+                $data .= '<video width="640" height="320" controls id="myVideo_' . $data_show['id'] . '" style="display:none;">';
+                $data .= '<source src="' . base_url() . 'uploads/video_library/' . $data_show['upload_video'] . '" type="video/mp4">';
+                $data .= '</video></div>';
+            }else{
+                $data .='<a class="player_btn" data-fancybox href="'.base_url('uploads/video_library/'.$data_show['upload_video']).'">';
+                $data .='<span>';
+                $data .='<img src="'.base_url('modules/video_library/assets/image/youtube_thumb.png').'" alt="img not found"/>';
+                $data .='</span>';
+                $data .='</a>';
+            }
+            $data .='</div>';
             $discussion_count = video_discussion_count($data_show['id']);
             $data .= ' <div class="video_cat">';
             $data .= ' <p>' . $data_show['description'] . '</p>';
@@ -366,7 +390,7 @@ class Video_library extends AdminController
                 $statusMsg = 'Failed to fetch access token!';
             }
         }
-       set_alert('success', _l('new_video_library_added_alert'));
+        set_alert('success', _l('new_video_library_added_alert'));
         redirect(admin_url('video_library'));
     }
     /*
@@ -390,26 +414,27 @@ class Video_library extends AdminController
             }
         }
     }
-    public function video_allowed_type_setup(){
+    public function video_allowed_type_setup()
+    {
         $this->load->view('admin/libraries/video_allowed_type_setup');
-        if($this->input->post()){
-            $val=$this->input->post();
-            update_option('vl_allowed_type',$val['vl_allowed_type'],1);
-            if(true){
+        if ($this->input->post()) {
+            $val = $this->input->post();
+            update_option('vl_allowed_type', $val['vl_allowed_type'], 1);
+            if (true) {
                 set_alert('success', _l('Allowed type updated successfully!'));
                 redirect(admin_url('video_library/video_allowed_type_setup'));
             }
         }
     }
-     /*Video Thumbnail*/
-     public function video_thumbnail(){
+    /*Video Thumbnail*/
+    public function video_thumbnail()
+    {
         $this->load->view('admin/libraries/video_thumbnail');
         $thumbnail_image_Uploaded = (thumbnail_image_upload() ? true : false);
         if ($thumbnail_image_Uploaded) {
             set_alert('success', _l('settings_updated'));
             redirect($_SERVER['HTTP_REFERER']);
         }
-       
     }
     /* Remove Thumbnail Image / ajax */
     public function remove_thumbnail_image($type = '')
@@ -428,5 +453,25 @@ class Video_library extends AdminController
 
         update_option('thumbnail_image', '');
         redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    public function delete_thumbnail_video($del_id)
+    {
+        if ($this->input->is_ajax_request()) {
+            $response = array();
+            if ($this->video_library_modal->delete_video_thumbnail_file($del_id)) {
+                $response['status'] = 'success';
+                $response['message'] = _l('vl_video_deleted');
+            } else {
+                $response['status'] = 'danger';
+                $response['message'] = _l('vl_video_not_deleted');
+            }
+            die(json_encode($response));
+        }
+        if ($this->video_library_modal->delete_video_thumbnail_file($del_id)) {
+            redirect(admin_url('video_library'));
+        } else {
+            redirect(admin_url('video_library'));
+        }
     }
 }

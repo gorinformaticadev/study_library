@@ -46,6 +46,21 @@
         color: red;
         cursor: pointer;
     }
+
+    .vl_video_link p {
+        position: absolute;
+        right: 0;
+        z-index: 999999;
+        padding: 5px 9px;
+        font-size: 10px;
+        color: #4f709b;
+        cursor: pointer;
+    }
+
+    p._delete_thumb {
+        display: inherit;
+        color: red;
+    }
 </style>
 <div id="wrapper">
     <div class="content">
@@ -81,6 +96,15 @@
                             </div>
                         </div>
                         <?php
+                        echo render_input('upload_video_thumbnail', _l('vl_video_thumbnail'), '', 'file', [], [],);
+                        if (isset($video) && !empty($video->upload_video_thumbnail)) {
+                            echo "<div class='form-group  vl_video_link'><a href='" . base_url() . 'uploads/video_library/' . $video->upload_video_thumbnail . "' download>
+            <h5><i class='fa fa-image'></i></h5>
+            <p class='d_l_btn'><i class='fa fa-download'></i> Download</p>
+            </a> 
+            <p class='_delete_thumb' ' data-id='" . $video->id . "'><i class='fa fa-times' data-id='" . $video->id . "'></i></p>
+            </div>";
+                        }
                         echo render_input('link', _l('vl_link_url'), '', '',  ['placeholder' => _l('vl_link_url_placeholder')], [], 'hidden showl');
 
                         echo render_input('upload_video', _l('vl_video_file'), '', 'file', [], [], 'showf');
@@ -105,7 +129,10 @@
 <?php
 init_tail();
 $vl_allowed_type = explode(',', get_option('vl_allowed_type'));
-$vl_conv_allowed_type = implode('|', $vl_allowed_type);
+$dotlessArray = array_map(function ($item) {
+    return str_replace('.', '', $item);
+}, $vl_allowed_type);
+$vl_conv_allowed_type = implode('|', $dotlessArray);
 ?>
 <script>
     function validate_form() {
@@ -127,6 +154,9 @@ $vl_conv_allowed_type = implode('|', $vl_allowed_type);
                     extension: "<?php echo "$vl_conv_allowed_type";  ?>",
 
                 },
+                upload_video_thumbnail: {
+                    extension: "jpg|jpeg|gif|png|bmp",
+                },
                 link: {
                     required: {
                         depends: function(element) {
@@ -144,6 +174,33 @@ $vl_conv_allowed_type = implode('|', $vl_allowed_type);
                 title: 'required',
                 category: 'required',
                 description: 'required',
+                upload_video: {
+                    required: {
+                        depends: function(element) {
+                            if ($('.upload_type') == 'file') {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        },
+                    },
+                    extension: "<?php echo "$vl_conv_allowed_type";  ?>",
+
+                },
+                upload_video_thumbnail: {
+                    extension: "<?php echo "$vl_conv_allowed_type";  ?>",
+                },
+                link: {
+                    required: {
+                        depends: function(element) {
+                            if ($('.upload_type') == 'link') {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        },
+                    }
+                }
             });
         <?php } ?>
     }
@@ -154,6 +211,12 @@ $vl_conv_allowed_type = implode('|', $vl_allowed_type);
         });
 
     })
+    $("body").on('click', '._delete_thumb', function(e) {
+        if (confirm_delete()) {
+            return true;
+        }
+        return false;
+    });
     $(document).on('click', '.vl_video_link span', function(event) {
         var video_id = $(event.currentTarget).data('id');
         $.post(admin_url + "video_library/delete_video/" + video_id, function(resp) {
@@ -179,6 +242,17 @@ $vl_conv_allowed_type = implode('|', $vl_allowed_type);
             $('.showl').hide();
             $('.showf').show();
         }
+    });
+
+    $(document).on('click', '.vl_video_link p', function(event) {
+        var video_id = $(event.currentTarget).data('id');
+        $.post(admin_url + "video_library/delete_thumbnail_video/" + video_id, function(resp) {
+            resp = JSON.parse(resp);
+            if (resp.status == 'success') {
+                location.reload();
+            }
+            // alert_float(resp.status, resp.message);
+        });
     });
 </script>
 </body>

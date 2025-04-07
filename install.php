@@ -69,5 +69,11 @@ if (!$CI->db->table_exists(db_prefix() . 'video_category')) {
             $CI->db->query("ALTER TABLE `" . $table . "` ADD `google_drive_upload_id` text NULL DEFAULT NULL;");
             
          }
+
+         if (!$CI->db->field_exists('upload_video_thumbnail', $table)) {
+            
+            $CI->db->query("ALTER TABLE `" . $table . "` ADD `upload_video_thumbnail` text NULL DEFAULT NULL;");
+            
+         }
          
          

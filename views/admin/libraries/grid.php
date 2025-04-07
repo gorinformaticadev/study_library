@@ -1,13 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
  $thumbnail_image = get_option('thumbnail_image'); 
-if($thumbnail_image) {?>
-<style>
- .wrap_video_cl
-          {   
-             background-image: url(<?php echo base_url('uploads/company/'.$thumbnail_image); ?>);
-            }
-</style>
-<?php }
 $CI     = & get_instance();
 $start  = intval($CI->input->post('start'));
 $length = intval($CI->input->post('length'));
@@ -71,11 +63,23 @@ $this->pagination->initialize($config);
     <?php
     if($output['iTotalDisplayRecords'] > 0){
       foreach ($rResult as $aRow) {
+         $val=get_upload_thumbnail($aRow['video_id']);
+         if(isset($val) && !empty($val->upload_video_thumbnail))
+         {
+          $tp = base_url().'uploads/video_library/'. $val->upload_video_thumbnail;
+         }elseif($thumbnail_image){
+          
+          $tp =  base_url().'uploads/company/'. $thumbnail_image;
+         }else{
+          
+          $tp =  base_url().'modules/video_library/assets/image/grid_back.png';
+         }
+         
         $hrefAttr = admin_url('video_library/add_video/' . $aRow['video_id']);
         ?>
         <div class="col-md-4">
           <div class="v_o_wr">
-            <div class="wrap_video_cl">
+            <div class="wrap_video_cl" style="background-image: url(<?php echo $tp ?>);">
               <div class="actn_edit">
                 <?php  if (has_permission('video_library', '', 'delete')) { ?>
                   <div class="wrap_actn_b">
