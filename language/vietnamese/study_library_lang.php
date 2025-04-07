@@ -1,5 +1,5 @@
 <?php
-$lang['vl_video_library']                           = 'Thư viện băng hình';
+$lang['vl_study_library']                           = 'Thư viện băng hình';
 $lang['vl_menu']                          			= 'Thư viện băng hình';
 $lang['vl_videos_submenu']                          = 'Video';
 $lang['vl_categories_submenu']                      = 'Thể loại';
@@ -11,13 +11,13 @@ $lang['vl_video_description']                      = 'Sự miêu tả';
 $lang['vl_video_cate']                      = 'Danh mục';
 $lang['vl_video_not_deleted']                      = 'Video không xóa!';
 $lang['vl_video_deleted']                      = 'Video đã bị xóa!';
-$lang['new_video_library_added_alert']                      = 'Đã thêm video!';
-$lang['new_video_library_added_failed_alert']                      = 'Không thêm được video!';
+$lang['new_study_library_added_alert']                      = 'Đã thêm video!';
+$lang['new_study_library_added_failed_alert']                      = 'Không thêm được video!';
 $lang['vl_projects']                      = 'Liên quan đến Project';
-$lang['video_library']                   = 'Thư viện băng hình';
+$lang['study_library']                   = 'Thư viện băng hình';
 $lang['vl_add_category']                 = 'Thêm thể loại';
 ## version 101
-$lang['vl_driveurl_placeholder']          = 'Redirect uri Ví dụ: https: // your_domain / admin / video_library / uploadFileGoogleDrive';
+$lang['vl_driveurl_placeholder']          = 'Redirect uri Ví dụ: https: // your_domain / admin / study_library / uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = 'Nhập khóa bí mật ổ đĩa của bạn';
 $lang['vl_ask_for_upload_gdrive']          = 'Bạn có muốn tải tệp của mình lên Google Drive không';
 $lang['vl_input_yes']                      = 'Đúng';

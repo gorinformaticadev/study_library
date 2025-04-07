@@ -1,5 +1,5 @@
 <?php
-$lang['vl_video_library']                           = 'Videotéka';
+$lang['vl_study_library']                           = 'Videotéka';
 $lang['vl_menu']                          			= 'Videotéka';
 $lang['vl_videos_submenu']                          = 'videa';
 $lang['vl_categories_submenu']                      = 'Kategorie';
@@ -11,13 +11,13 @@ $lang['vl_video_description']                      = 'Popis';
 $lang['vl_video_cate']                      = 'Kategorie';
 $lang['vl_video_not_deleted']                      = 'Video nelze smazat!';
 $lang['vl_video_deleted']                      = 'Video smazáno!';
-$lang['new_video_library_added_alert']                      = 'Video přidáno!';
-$lang['new_video_library_added_failed_alert']                      = 'Přidání videa se nezdařilo!';
+$lang['new_study_library_added_alert']                      = 'Video přidáno!';
+$lang['new_study_library_added_failed_alert']                      = 'Přidání videa se nezdařilo!';
 $lang['vl_projects']                      = 'Související s Project';
-$lang['video_library']                           = 'Videotéka';
+$lang['study_library']                           = 'Videotéka';
 $lang['vl_add_category']                      = 'Přidat kategorii';
 ## version 101
-$lang['vl_driveurl_placeholder']          = 'Přesměrovací uri Příklad: https://vaše_doména/admin/video_library/uploadFileGoogleDrive';
+$lang['vl_driveurl_placeholder']          = 'Přesměrovací uri Příklad: https://vaše_doména/admin/study_library/uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = 'Zadejte tajný klíč vašeho disku';
 $lang['vl_ask_for_upload_gdrive']          = 'Chcete nahrát svůj soubor na Disk Google?';
 $lang['vl_input_yes']                      = 'Ano';

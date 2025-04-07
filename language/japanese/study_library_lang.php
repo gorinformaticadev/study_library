@@ -1,5 +1,5 @@
 <?php
-$lang['vl_video_library']                           = 'ビデオライブラリ';
+$lang['vl_study_library']                           = 'ビデオライブラリ';
 $lang['vl_menu']                          			= 'ビデオライブラリ';
 $lang['vl_videos_submenu']                          = 'ビデオ';
 $lang['vl_categories_submenu']                      = 'カテゴリ';
@@ -11,13 +11,13 @@ $lang['vl_video_description']                      = '説明';
 $lang['vl_video_cate']                      = 'カテゴリー';
 $lang['vl_video_not_deleted']                      = 'ビデオは削除しないでください！';
 $lang['vl_video_deleted']                      = '動画が削除されました！';
-$lang['new_video_library_added_alert']                      = 'ビデオが追加されました！';
-$lang['new_video_library_added_failed_alert']                      = 'ビデオの追加に失敗しました！';
+$lang['new_study_library_added_alert']                      = 'ビデオが追加されました！';
+$lang['new_study_library_added_failed_alert']                      = 'ビデオの追加に失敗しました！';
 $lang['vl_projects']                      = 'プロジェクト関連';
-$lang['video_library']                           = 'ビデオライブラリ';
+$lang['study_library']                           = 'ビデオライブラリ';
 $lang['vl_add_category']                      = 'カテゴリを追加';
 ## version 101
-$lang['vl_driveurl_placeholder']          = 'uriをリダイレクトする例：https：// your_domain / admin / video_library / uploadFileGoogleDrive';
+$lang['vl_driveurl_placeholder']          = 'uriをリダイレクトする例：https：// your_domain / admin / study_library / uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = 'ドライブの秘密鍵を入力してください';
 $lang['vl_ask_for_upload_gdrive']          = 'Googleドライブにファイルをアップロードしますか';
 $lang['vl_input_yes']                      = 'はい';

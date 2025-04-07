@@ -25,10 +25,10 @@ foreach ($rResult as $aRow) {
     $row[] = $aRow['id']; 
     $row[] = $aRow['category'];
     $edit_delete_link = '';
-    if (has_permission('video_library', '', 'edit')) { 
+    if (has_permission('study_library', '', 'edit')) { 
      $edit_delete_link .= '<a href="javascript:void(0);" onclick="edit_category(this);" data-id="'.$aRow['id'].'">Edit</a>'; 
  }
- if (has_permission('video_library', '', 'delete')) { 
+ if (has_permission('study_library', '', 'delete')) { 
     $edit_delete_link .= ' <a href="javascript:void(0);" onclick="delete_category(this);" data-id="'.$aRow['id'].'">Delete</a>';
 }
 $row[] = $edit_delete_link;

@@ -5,7 +5,7 @@
      <div class="panel_s">
          <div class="panel-body">
             <div class="wrap_form_new_cl " style=" max-width: 60%; margin: 0 auto; border: 1px solid #e3e8ee;padding: 24px;  border-radius: 10px; background-color: #e3e8ee;margin-top: 25px;"> 
-             <?php echo form_open('admin/video_library/update_video',array('id'=>'update_owner_operator_form','enctype'=>'multipart/form-data')); ?>  
+             <?php echo form_open('admin/study_library/update_video',array('id'=>'update_owner_operator_form','enctype'=>'multipart/form-data')); ?>  
              <div class="row">
                 <div class="form-group col-lg-12">  
                   <?php if ($this->session->flashdata('msg')) { ?>

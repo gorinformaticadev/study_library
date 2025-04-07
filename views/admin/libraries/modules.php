@@ -17,7 +17,7 @@
                </div>
                <hr class="hr-panel-heading" />
                <div class="tab-content">
-                  <div class="row" id="video_library-table">
+                  <div class="row" id="study_library-table">
                      <div class="clearfix"></div>
                      <div class="col-md-12">
                        <?php
@@ -27,7 +27,7 @@
                         _l('Action'),
 
                      );
-                       render_datatable($table_data,'video_library');
+                       render_datatable($table_data,'study_library');
                        ?>
                     </div>
                  </div>
@@ -44,8 +44,8 @@
                 $.each($('._hidden_inputs._filters input'),function(){
                    serverParams[$(this).attr('name')] = '[name="'+$(this).attr('name')+'"]';
                 });
-                initDataTable('.table-video_library', admin_url+'video_library/video_category_table', [0], [0], serverParams, [0, 'desc']);
-                Table = $('.table-video_library').DataTable().columns([0]).visible(false);
+                initDataTable('.table-study_library', admin_url+'study_library/video_category_table', [0], [0], serverParams, [0, 'desc']);
+                Table = $('.table-study_library').DataTable().columns([0]).visible(false);
              });
 
           </script>
@@ -59,6 +59,6 @@
 <script type="text/javascript">
    function delete_category(e) {
       var id = $(e).data('id');
-      window.location.href = admin_url+"video_library/delete_category/"+id;
+      window.location.href = admin_url+"study_library/delete_category/"+id;
    }
 </script>

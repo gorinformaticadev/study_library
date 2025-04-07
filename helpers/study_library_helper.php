@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-function prepare_grid_query_for_video_library($aColumns, $sIndexColumn, $sTable, $join = [], $where = [], $additionalSelect = [], $sGroupBy = '', $searchAs = [])
+function prepare_grid_query_for_study_library($aColumns, $sIndexColumn, $sTable, $join = [], $where = [], $additionalSelect = [], $sGroupBy = '', $searchAs = [])
 {
     $CI = &get_instance();
     $__post = $CI
@@ -181,13 +181,13 @@ function prepare_grid_query_for_video_library($aColumns, $sIndexColumn, $sTable,
     return ['rResult' => $rResult, 'output' => $output, "query" => $last_query];
 }
 
-function get_video_library_category()
+function get_study_library_category()
 {
     $CI = &get_instance();
-    if (!class_exists('video_library_modal')) {
-        $CI->load->model('video_library/video_library_modal');
+    if (!class_exists('study_library_modal')) {
+        $CI->load->model('study_library/study_library_modal');
     }
-    return $CI->video_library_modal->show_category();
+    return $CI->study_library_modal->show_category();
 }
 function handle_video_comment_attachments($discussion_id, $post_data, $insert_data)
 {
@@ -197,7 +197,7 @@ function handle_video_comment_attachments($discussion_id, $post_data, $insert_da
         die;
     }
     if (isset($_FILES['file']['name'])) {
-        $path = VIDEO_LIBRARY_DISCUSSIONS_ATTACHMENT_FOLDER . $discussion_id . '/';
+        $path = study_library_DISCUSSIONS_ATTACHMENT_FOLDER . $discussion_id . '/';
         if (!_upload_extension_allowed($_FILES['file']['name'])) {
             header('HTTP/1.0 400 Bad error');
             echo json_encode(['message' => _l('file_php_extension_blocked')]);
@@ -220,12 +220,12 @@ function handle_video_comment_attachments($discussion_id, $post_data, $insert_da
     }
     return $insert_data;
 }
-function handle_video_library_video_upload($vlid = '')
+function handle_study_library_video_upload($vlid = '')
 {
     if (is_numeric($vlid)) {
         $vl_allowed_type = explode(',', get_option('vl_allowed_type'));
         if (isset($_FILES['upload_video']['name']) && $_FILES['upload_video']['name'] != '') {
-            $path = get_upload_path_by_type('video_library');
+            $path = get_upload_path_by_type('study_library');
             $tmpFilePath = $_FILES['upload_video']['tmp_name'];
             if (!empty($tmpFilePath) && $tmpFilePath != '') {
                 $extension = '.';
@@ -261,10 +261,10 @@ function video_discussion_count($video_id = '')
     $CI = &get_instance();
     $total = 0;
     if (is_numeric($video_id)) {
-        if (!class_exists('video_library_modal')) {
-            $CI->load->model('video_library_modal');
+        if (!class_exists('study_library_modal')) {
+            $CI->load->model('study_library_modal');
         }
-        $total = $CI->video_library_modal->video_discussion_count($video_id);
+        $total = $CI->study_library_modal->video_discussion_count($video_id);
     }
     return $total;
 }
@@ -325,12 +325,12 @@ function thumbnail_image_upload()
     return $success;
 }
 
-function handle_video_library_video_thumbnail_upload($vlid = '')
+function handle_study_library_video_thumbnail_upload($vlid = '')
 {
     if (is_numeric($vlid)) {
         $allowed_extensions = ['jpg','jpeg','gif','png','bmp'];
         if (isset($_FILES['upload_video_thumbnail']['name']) && $_FILES['upload_video_thumbnail']['name'] != '') {
-            $path = get_upload_path_by_type('video_library');
+            $path = get_upload_path_by_type('study_library');
             $tmpFilePath = $_FILES['upload_video_thumbnail']['tmp_name'];
             if (!empty($tmpFilePath) && $tmpFilePath != '') {
                 $extension = strtolower(pathinfo($_FILES['upload_video_thumbnail']['name'], PATHINFO_EXTENSION));

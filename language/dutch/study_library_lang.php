@@ -1,6 +1,6 @@
 <?php
-$lang['video_library']                           = 'Videobibliotheek';
-$lang['vl_video_library']                           = 'Videobibliotheek';
+$lang['study_library']                           = 'Videobibliotheek';
+$lang['vl_study_library']                           = 'Videobibliotheek';
 $lang['vl_menu']                          			= 'Videobibliotheek';
 $lang['vl_videos_submenu']                          = 'Videos';
 $lang['vl_categories_submenu']                      = 'Categorieën';
@@ -12,12 +12,12 @@ $lang['vl_video_description']                      = 'Beschrijving';
 $lang['vl_video_cate']                      = 'Categorie';
 $lang['vl_video_not_deleted']                      = 'Video niet verwijderen!';
 $lang['vl_video_deleted']                      = 'Video verwijderd!';
-$lang['new_video_library_added_alert']                      = 'Video toegevoegd!';
-$lang['new_video_library_added_failed_alert']                      = 'Video toevoegen mislukt!';
+$lang['new_study_library_added_alert']                      = 'Video toegevoegd!';
+$lang['new_study_library_added_failed_alert']                      = 'Video toevoegen mislukt!';
 $lang['vl_projects']                      = 'Gerelateerd aan Project';
 $lang['vl_add_category']                      = 'Categorie toevoegen';
 ## version 101
-$lang['vl_driveurl_placeholder']          = 'Redirect uri Ex: https://your_domain/admin/video_library/uploadFileGoogleDrive';
+$lang['vl_driveurl_placeholder']          = 'Redirect uri Ex: https://your_domain/admin/study_library/uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = 'Voer uw geheime schijfsleutel in';
 $lang['vl_ask_for_upload_gdrive']          = 'Wil je je bestand uploaden naar Google Drive';
 $lang['vl_input_yes']                      = 'Ja';

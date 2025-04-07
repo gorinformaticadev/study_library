@@ -1,6 +1,6 @@
 <?php
-$lang['video_library']                           = 'Видео библиотека';
-$lang['vl_video_library']                           = 'Видео библиотека';
+$lang['study_library']                           = 'Видео библиотека';
+$lang['vl_study_library']                           = 'Видео библиотека';
 $lang['vl_menu']                          			= 'Видео библиотека';
 $lang['vl_videos_submenu']                          = 'видеоклипове';
 $lang['vl_categories_submenu']                      = 'Категории';
@@ -12,12 +12,12 @@ $lang['vl_video_description']                      = 'Описание';
 $lang['vl_video_cate']                      = 'Категория';
 $lang['vl_video_not_deleted']                      = 'Видео не се изтрива!';
 $lang['vl_video_deleted']                      = 'Видеото е изтрито!';
-$lang['new_video_library_added_alert']                      = 'Видео е добавено!';
-$lang['new_video_library_added_failed_alert']                      = 'Добавянето на видеоклип не бе успешно!';
+$lang['new_study_library_added_alert']                      = 'Видео е добавено!';
+$lang['new_study_library_added_failed_alert']                      = 'Добавянето на видеоклип не бе успешно!';
 $lang['vl_projects']                      = 'Свързано с проекта';
 $lang['vl_add_category']                      = 'Добавете категория';
 ## version 101
-$lang['vl_driveurl_placeholder']          = 'Пренасочване на uri Пример: https://your_domain/admin/video_library/uploadFileGoogleDrive';
+$lang['vl_driveurl_placeholder']          = 'Пренасочване на uri Пример: https://your_domain/admin/study_library/uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = 'Въведете секретния ключ за вашето устройство';
 $lang['vl_ask_for_upload_gdrive']          = 'Искате ли да качите файла си в Google Drive';
 $lang['vl_input_yes']                      = 'да';

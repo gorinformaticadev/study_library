@@ -17,24 +17,24 @@ if (!$CI->db->table_exists(db_prefix() . 'video_category')) {
          `added_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
          ) ENGINE=InnoDB DEFAULT CHARSET=' . $CI->db->char_set . ';');
       }
-      if(!is_dir(VIDEO_LIBRARY_UPLOADS_FOLDER)){
-         mkdir(VIDEO_LIBRARY_UPLOADS_FOLDER, 0777, TRUE);
-         fopen(VIDEO_LIBRARY_UPLOADS_FOLDER . 'index.html', 'w');
-         $fp = fopen(VIDEO_LIBRARY_UPLOADS_FOLDER . 'index.html', 'a+');
+      if(!is_dir(study_library_UPLOADS_FOLDER)){
+         mkdir(study_library_UPLOADS_FOLDER, 0777, TRUE);
+         fopen(study_library_UPLOADS_FOLDER . 'index.html', 'w');
+         $fp = fopen(study_library_UPLOADS_FOLDER . 'index.html', 'a+');
          if ($fp) {
             fclose($fp);
          }
       }
-      if(!is_dir(VIDEO_LIBRARY_DISCUSSIONS_ATTACHMENT_FOLDER)){
-         mkdir(VIDEO_LIBRARY_DISCUSSIONS_ATTACHMENT_FOLDER, 0777, TRUE);
-         fopen(VIDEO_LIBRARY_DISCUSSIONS_ATTACHMENT_FOLDER . 'index.html', 'w');
-         $fp = fopen(VIDEO_LIBRARY_DISCUSSIONS_ATTACHMENT_FOLDER . 'index.html', 'a+');
+      if(!is_dir(study_library_DISCUSSIONS_ATTACHMENT_FOLDER)){
+         mkdir(study_library_DISCUSSIONS_ATTACHMENT_FOLDER, 0777, TRUE);
+         fopen(study_library_DISCUSSIONS_ATTACHMENT_FOLDER . 'index.html', 'w');
+         $fp = fopen(study_library_DISCUSSIONS_ATTACHMENT_FOLDER . 'index.html', 'a+');
          if ($fp) {
             fclose($fp);
          }
       }
-      if (!$CI->db->table_exists(db_prefix() . 'video_library_videos_comments')) {
-         $CI->db->query('CREATE TABLE `' . db_prefix() . 'video_library_videos_comments` (
+      if (!$CI->db->table_exists(db_prefix() . 'study_library_videos_comments')) {
+         $CI->db->query('CREATE TABLE `' . db_prefix() . 'study_library_videos_comments` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `video_id` int(11) NOT NULL,
             `discussion_type` varchar(10) NOT NULL,

@@ -1,14 +1,14 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Video_library extends AdminController
+class study_library extends AdminController
 {
     private $googleOauthURL = '';
     private $access_token = '';
     public function __construct()
     {
         parent::__construct();
-        $this->app_scripts->add('library-js', module_dir_url('video_library', '/assets/js/video_library.js'));
-        $this->load->model('video_library_modal');
+        $this->app_scripts->add('library-js', module_dir_url('study_library', '/assets/js/study_library.js'));
+        $this->load->model('study_library_modal');
         $this->load->library('GoogleDriveApi');
         // Google OAuth URL 
         $this->googleOauthURL = 'https://accounts.google.com/o/oauth2/auth?scope=' . urlencode(GOOGLE_OAUTH_SCOPE) . '&redirect_uri=' . REDIRECT_URI . '&response_type=code&client_id=' . GOOGLE_CLIENT_ID . '&access_type=online';
@@ -18,33 +18,33 @@ class Video_library extends AdminController
         $this->app_css->add('jquery-comments-css', base_url('assets/plugins/jquery-comments/css/jquery-comments.css'));
 
         $this->app_scripts->add('jquery-comments-js', base_url('assets/plugins/jquery-comments/js/jquery-comments.js'));
-        $data['video_data_show'] = $this->video_library_modal->show_video();
-        $data['data_category'] = $this->video_library_modal->show_category();
-        $this->load->view('admin/libraries/video_library', $data);
+        $data['video_data_show'] = $this->study_library_modal->show_video();
+        $data['data_category'] = $this->study_library_modal->show_category();
+        $this->load->view('admin/libraries/study_library', $data);
     }
     public function get_video_data()
     {
-        $data['data_category'] = $this->video_library_modal->show_category();
+        $data['data_category'] = $this->study_library_modal->show_category();
         $this->load->view('admin/libraries/add_video_data', $data);
     }
     public function video_category_table()
     {
-        $this->app->get_table_data(module_views_path('video_library', 'admin/libraries/table/video_category_table'));
+        $this->app->get_table_data(module_views_path('study_library', 'admin/libraries/table/video_category_table'));
     }
 
     public function modules()
     {
-        $data['data_category'] = $this->video_library_modal->show_category();
+        $data['data_category'] = $this->study_library_modal->show_category();
         $this->load->view('admin/libraries/modules', $data);
     }
     public function lessons()
     {
-        $data['data_category'] = $this->video_library_modal->show_category();
+        $data['data_category'] = $this->study_library_modal->show_category();
         $this->load->view('admin/libraries/lessons', $data);
     }
     public function categeorys()
     {
-        $data['data_category'] = $this->video_library_modal->show_category();
+        $data['data_category'] = $this->study_library_modal->show_category();
         $this->load->view('admin/libraries/categeorys', $data);
     }
 
@@ -58,7 +58,7 @@ class Video_library extends AdminController
         $data = array(
             'category' => $this->input->post('add_category'),
         );
-        if ($this->video_library_modal->add_category($data)) {
+        if ($this->study_library_modal->add_category($data)) {
             echo true;
         } else {
             echo false;
@@ -67,7 +67,7 @@ class Video_library extends AdminController
     public function update_category_data()
     {
         $data = $this->input->post();
-        if ($this->video_library_modal->update_category_data($data)) {
+        if ($this->study_library_modal->update_category_data($data)) {
             echo true;
         } else {
             echo false;
@@ -79,53 +79,53 @@ class Video_library extends AdminController
     public function add_video($id = '')
     {
 
-        if (is_numeric($id) && has_permission('video_library', '', 'edit')) {
+        if (is_numeric($id) && has_permission('study_library', '', 'edit')) {
             if ($this->input->post()) {
                 $post_data = $this->input->post();
-                $this->video_library_modal->update_video($post_data, $id);
+                $this->study_library_modal->update_video($post_data, $id);
                 if ($id) {
                     if (isset($_FILES['upload_video_thumbnail'])) {
-                        handle_video_library_video_thumbnail_upload($id);
+                        handle_study_library_video_thumbnail_upload($id);
                     }
                     if (isset($_FILES['upload_video'])) {
-                        handle_video_library_video_upload($id);
+                        handle_study_library_video_upload($id);
                     }
-                    set_alert('success', _l('new_video_library_edited_alert'));
-                    redirect(admin_url('video_library'));
+                    set_alert('success', _l('new_study_library_edited_alert'));
+                    redirect(admin_url('study_library'));
                 } else {
-                    set_alert('danger', _l('new_video_library_update_failed_alert'));
-                    redirect(admin_url('video_library'));
+                    set_alert('danger', _l('new_study_library_update_failed_alert'));
+                    redirect(admin_url('study_library'));
                 }
             }
-            $data['video'] = $this->video_library_modal->edit_video($id);
-            $data['data_category'] = $this->video_library_modal->show_category();
+            $data['video'] = $this->study_library_modal->edit_video($id);
+            $data['data_category'] = $this->study_library_modal->show_category();
             $data['title'] = _l('vl_edit_video');
         } else {
             if ($this->input->post()) {
                 $post_data = $this->input->post();
-                $id = $this->video_library_modal->upload_video($post_data);
+                $id = $this->study_library_modal->upload_video($post_data);
                 if ($id) {
                     if (isset($_FILES['upload_video_thumbnail'])) {
-                        handle_video_library_video_thumbnail_upload($id);
+                        handle_study_library_video_thumbnail_upload($id);
                     }
                     $this->session->set_userdata('v_id', $id);
-                    handle_video_library_video_upload($id);
+                    handle_study_library_video_upload($id);
                     if ($id) {
-                        $filedataa = $this->video_library_modal->edit_video($id);
+                        $filedataa = $this->study_library_modal->edit_video($id);
                         $val = get_option('is_vl_google_drive');
                         if ($filedataa->upload_type != 'link' && $val == 'yes') {
                             redirect($this->googleOauthURL);
                             $this->uploadFileGoogleDrive($id);
                         }
                     }
-                    set_alert('success', _l('new_video_library_added_alert'));
-                    redirect(admin_url('video_library'));
+                    set_alert('success', _l('new_study_library_added_alert'));
+                    redirect(admin_url('study_library'));
                 } else {
-                    set_alert('danger', _l('new_video_library_added_alert_failed'));
-                    redirect(admin_url('video_library'));
+                    set_alert('danger', _l('new_study_library_added_alert_failed'));
+                    redirect(admin_url('study_library'));
                 }
             }
-            $data['data_category'] = $this->video_library_modal->show_category();
+            $data['data_category'] = $this->study_library_modal->show_category();
             $data['projects'] = $this->projects_model->get();
             $data['title'] = _l('vl_add_video');
         }
@@ -141,33 +141,33 @@ class Video_library extends AdminController
         if($this->input->post('project_id')){
             $post_data['project_id'] = $this->input->post('project_id');
         }
-        $result = $this->video_library_modal->search_title_category($post_data);
+        $result = $this->study_library_modal->search_title_category($post_data);
         $thumbnail_image = get_option('thumbnail_image'); 
         $data = '<div class="row">';
         foreach ($result as $data_show) {
             $val = get_upload_thumbnail($data_show['id']);
             if (isset($val) && !empty($val->upload_video_thumbnail)) {
-                $tp = base_url() . 'uploads/video_library/' . $val->upload_video_thumbnail;
+                $tp = base_url() . 'uploads/study_library/' . $val->upload_video_thumbnail;
             } elseif ($thumbnail_image) {
                 $tp =  base_url() . 'uploads/company/' . $thumbnail_image;
             } else {
-                $tp =  base_url() . 'modules/video_library/assets/image/grid_back.png';
+                $tp =  base_url() . 'modules/study_library/assets/image/grid_back.png';
             }
-            $hrefAttr = admin_url('video_library/add_video/' . $data_show['id']);
+            $hrefAttr = admin_url('study_library/add_video/' . $data_show['id']);
             $data .= ' <div class="col-md-4">
             <div class="v_o_wr">
             <div class="wrap_video_cl" style="background-image: url(' . $tp . ');">
             <div class="actn_edit">';
-            if (has_permission('video_library', '', 'delete')) {
-                $data .=  '<div class="wrap_actn_b"> <a class="trash_btn_c" href="' . admin_url('video_library/delete_video/') . $data_show['id'] . ' ">';
+            if (has_permission('study_library', '', 'delete')) {
+                $data .=  '<div class="wrap_actn_b"> <a class="trash_btn_c" href="' . admin_url('study_library/delete_video/') . $data_show['id'] . ' ">';
                 $data .=  '<span>
                 <i class="fa fa-trash-o" aria-hidden="true"></i> </span> delete 
                 </a>
                 </div>';
             }
-            if (has_permission('video_library', '', 'edit')) {
+            if (has_permission('study_library', '', 'edit')) {
                 $data .= '<div class="wrap_actn_b">';
-                $data .= '<a class="pencil_btn_c" href="' . admin_url('video_library/add_video/') . $data_show['id'] . '">';
+                $data .= '<a class="pencil_btn_c" href="' . admin_url('study_library/add_video/') . $data_show['id'] . '">';
                 $data .= '<span>
                 <i class="fa fa-pencil" aria-hidden="true"></i></span> edit
                 </a>
@@ -177,17 +177,17 @@ class Video_library extends AdminController
             if($aRow['upload_type'] == 'file'){
                 $data .= '<a class="player_btn" data-fancybox href="#myVideo_' . $data_show['id'].'">';
                 $data .= '<span>
-                <img src="' . base_url('modules/video_library/assets/image/youtube_thumb.png') . '" alt="img not found"/>
+                <img src="' . base_url('modules/study_library/assets/image/youtube_thumb.png') . '" alt="img not found"/>
                 </span>
                 </a>';
                 $data .= '<div class="card">';
                 $data .= '<video width="640" height="320" controls id="myVideo_' . $data_show['id'] . '" style="display:none;">';
-                $data .= '<source src="' . base_url() . 'uploads/video_library/' . $data_show['upload_video'] . '" type="video/mp4">';
+                $data .= '<source src="' . base_url() . 'uploads/study_library/' . $data_show['upload_video'] . '" type="video/mp4">';
                 $data .= '</video></div>';
             }else{
-                $data .='<a class="player_btn" data-fancybox href="'.base_url('uploads/video_library/'.$data_show['upload_video']).'">';
+                $data .='<a class="player_btn" data-fancybox href="'.base_url('uploads/study_library/'.$data_show['upload_video']).'">';
                 $data .='<span>';
-                $data .='<img src="'.base_url('modules/video_library/assets/image/youtube_thumb.png').'" alt="img not found"/>';
+                $data .='<img src="'.base_url('modules/study_library/assets/image/youtube_thumb.png').'" alt="img not found"/>';
                 $data .='</span>';
                 $data .='</a>';
             }
@@ -211,7 +211,7 @@ class Video_library extends AdminController
     public function update_video()
     {
         $video_id = $this->input->post('video_id');
-        $video_detail = $this->video_library_modal->data_verify($video_id);
+        $video_detail = $this->study_library_modal->data_verify($video_id);
         $old_file_data = base_url() . 'uploads/upload_video/' . $video_detail->upload_video;
         $config['file_name'] = 'video' . '_' . time();
         $config['upload_path']          = 'uploads/upload_video/';
@@ -227,11 +227,11 @@ class Video_library extends AdminController
                         'video_category' => $this->input->post('category'),
                         'description' => $this->input->post('desc'),
                     );
-                    if ($this->video_library_modal->update_video($video_data, $video_id)) {
-                        return redirect('video_library/index');
+                    if ($this->study_library_modal->update_video($video_data, $video_id)) {
+                        return redirect('study_library/index');
                     } else {
 
-                        return redirect('video_library/index');
+                        return redirect('study_library/index');
                     }
                 } else {
                     $fd =  $this->upload->data();
@@ -243,13 +243,13 @@ class Video_library extends AdminController
                         'upload_video' => $fn,
                     );
 
-                    if ($this->video_library_modal->update_video($video_data, $video_id)) {
+                    if ($this->study_library_modal->update_video($video_data, $video_id)) {
                         unlink($old_file_data);
                         $this->session->set_flashdata('msg', 'Video updated successfully');
-                        return redirect('video_library/index');
+                        return redirect('study_library/index');
                     } else {
                         $this->session->set_flashdata('msg', 'Video not updated successfully');
-                        return redirect('video_library/index');
+                        return redirect('study_library/index');
                     }
                 }
             } else {
@@ -264,21 +264,21 @@ class Video_library extends AdminController
                 'description' => $this->input->post('desc'),
                 'upload_video' => $fn,
             );
-            if ($this->video_library_modal->update_video($video_data, $video_id)) {
+            if ($this->study_library_modal->update_video($video_data, $video_id)) {
                 $this->session->set_flashdata('msg', 'Video updated successfully');
-                return redirect('video_library/index');
+                return redirect('study_library/index');
             } else {
                 $this->session->set_flashdata('msg', 'Video not updated successfully');
-                return redirect('video_library/index');
+                return redirect('study_library/index');
             }
         }
     }
     public function delete_video($del_id)
     {
-        if (has_permission('video_library', '', 'delete')) {
+        if (has_permission('study_library', '', 'delete')) {
             if ($this->input->is_ajax_request()) {
                 $response = array();
-                if ($this->video_library_modal->delete_video_file($del_id)) {
+                if ($this->study_library_modal->delete_video_file($del_id)) {
                     $response['status'] = 'success';
                     $response['message'] = _l('vl_video_deleted');
                 } else {
@@ -287,10 +287,10 @@ class Video_library extends AdminController
                 }
                 die(json_encode($response));
             }
-            if ($this->video_library_modal->delete_video($del_id)) {
-                redirect(admin_url('video_library'));
+            if ($this->study_library_modal->delete_video($del_id)) {
+                redirect(admin_url('study_library'));
             } else {
-                redirect(admin_url('video_library'));
+                redirect(admin_url('study_library'));
             }
         } else {
             set_alert('danger', 'access denied!');
@@ -298,8 +298,8 @@ class Video_library extends AdminController
     }
     public function edit_category_data($edit_id)
     {
-        if (has_permission('video_library', '', 'edit')) {
-            $update_cate['edit_data'] = $this->video_library_modal->update_category($edit_id);
+        if (has_permission('study_library', '', 'edit')) {
+            $update_cate['edit_data'] = $this->study_library_modal->update_category($edit_id);
             $this->load->view('admin/libraries/update_category', $update_cate);
         } else {
             set_alert('danger', 'access denied!');
@@ -307,13 +307,13 @@ class Video_library extends AdminController
     }
     public function delete_category($cat_id)
     {
-        if (has_permission('video_library', '', 'delete')) {
-            if ($this->video_library_modal->delete_category($cat_id)) {
+        if (has_permission('study_library', '', 'delete')) {
+            if ($this->study_library_modal->delete_category($cat_id)) {
                 set_alert('success', 'Category deleted!');
-                redirect(admin_url('video_library/categeory'));
+                redirect(admin_url('study_library/categeory'));
             } else {
                 set_alert('success', 'Category deletion failed!');
-                redirect(admin_url('video_library/categeory'));
+                redirect(admin_url('study_library/categeory'));
             }
         } else {
             set_alert('danger', 'access denied!');
@@ -333,11 +333,11 @@ class Video_library extends AdminController
     }
     public function get_video_comments($id, $type)
     {
-        echo json_encode($this->video_library_modal->get_video_comments($id, $type));
+        echo json_encode($this->study_library_modal->get_video_comments($id, $type));
     }
     public function add_discussion_comment($video_id, $type)
     {
-        echo json_encode($this->video_library_modal->add_discussion_comment(
+        echo json_encode($this->study_library_modal->add_discussion_comment(
             $this->input->post(null, false),
             $video_id,
             $type
@@ -346,11 +346,11 @@ class Video_library extends AdminController
     }
     public function update_discussion_comment()
     {
-        echo json_encode($this->video_library_modal->update_discussion_comment($this->input->post(null, false)));
+        echo json_encode($this->study_library_modal->update_discussion_comment($this->input->post(null, false)));
     }
     public function delete_discussion_comment($id)
     {
-        echo json_encode($this->video_library_modal->delete_discussion_comment($id));
+        echo json_encode($this->study_library_modal->delete_discussion_comment($id));
     }
     //----------------------------------------------------------------------------------------
     //Google Drive Api
@@ -359,12 +359,12 @@ class Video_library extends AdminController
     {
         $vi_id = $this->session->userdata('v_id');
         if ($vi_id) {
-            $filedata = $this->video_library_modal->edit_video($vi_id);
+            $filedata = $this->study_library_modal->edit_video($vi_id);
             if ($filedata->upload_type != 'file') {
                 return false;
             }
             $file_name = $filedata->upload_video;
-            $target_file = VIDEO_LIBRARY_UPLOADS_FOLDER . $file_name;
+            $target_file = study_library_UPLOADS_FOLDER . $file_name;
             $file_content = file_get_contents($target_file);
             $mime_type = mime_content_type($target_file);
             if (!empty($this->session->userdata('google_access_token'))) {
@@ -386,7 +386,7 @@ class Video_library extends AdminController
                         // Update file metadata in Google drive 
                         $drive_file_meta = $GoogleDriveApi->UpdateFileMeta($this->access_token, $drive_file_id, $file_meta);
                         if ($drive_file_meta) {
-                            $this->video_library_modal->update_google_drive_id($drive_file_meta, $vi_id);
+                            $this->study_library_modal->update_google_drive_id($drive_file_meta, $vi_id);
                             $this->session->unset_userdata('google_access_token');
                             $status = 'success';
                             $statusMsg = '<p>File has been uploaded to Google Drive successfully!</p>';
@@ -400,8 +400,8 @@ class Video_library extends AdminController
                 $statusMsg = 'Failed to fetch access token!';
             }
         }
-        set_alert('success', _l('new_video_library_added_alert'));
-        redirect(admin_url('video_library'));
+        set_alert('success', _l('new_study_library_added_alert'));
+        redirect(admin_url('study_library'));
     }
     /*
     ==============================================================================================================
@@ -420,7 +420,7 @@ class Video_library extends AdminController
             update_option('is_vl_google_drive', $setup['drivecheck'], 1);
             if (true) {
                 set_alert('success', _l('vl_credentials'));
-                redirect(admin_url('video_library/video_drive_setup'));
+                redirect(admin_url('study_library/video_drive_setup'));
             }
         }
     }
@@ -432,7 +432,7 @@ class Video_library extends AdminController
             update_option('vl_allowed_type', $val['vl_allowed_type'], 1);
             if (true) {
                 set_alert('success', _l('Allowed type updated successfully!'));
-                redirect(admin_url('video_library/video_allowed_type_setup'));
+                redirect(admin_url('study_library/video_allowed_type_setup'));
             }
         }
     }
@@ -469,7 +469,7 @@ class Video_library extends AdminController
     {
         if ($this->input->is_ajax_request()) {
             $response = array();
-            if ($this->video_library_modal->delete_video_thumbnail_file($del_id)) {
+            if ($this->study_library_modal->delete_video_thumbnail_file($del_id)) {
                 $response['status'] = 'success';
                 $response['message'] = _l('vl_video_deleted');
             } else {
@@ -478,10 +478,10 @@ class Video_library extends AdminController
             }
             die(json_encode($response));
         }
-        if ($this->video_library_modal->delete_video_thumbnail_file($del_id)) {
-            redirect(admin_url('video_library'));
+        if ($this->study_library_modal->delete_video_thumbnail_file($del_id)) {
+            redirect(admin_url('study_library'));
         } else {
-            redirect(admin_url('video_library'));
+            redirect(admin_url('study_library'));
         }
     }
 }

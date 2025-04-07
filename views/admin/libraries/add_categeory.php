@@ -5,7 +5,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title" id="exampleModalLabel">Category</h4>
       </div>
-      <?php echo form_open('admin/video_library/add_owner_operator_data',array('id'=>'category_form')); ?> 
+      <?php echo form_open('admin/study_library/add_owner_operator_data',array('id'=>'category_form')); ?> 
            
       <div class="modal-body">
         <div class="row">

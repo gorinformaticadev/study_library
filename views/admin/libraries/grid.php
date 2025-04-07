@@ -25,7 +25,7 @@ if(!empty($cat_ids_arr)) {
 if($CI->input->post('project_id')){
  array_push($where, 'AND '.db_prefix().'upload_video.project_id='.$CI->input->post('project_id')); 
 }
-$result = prepare_grid_query_for_video_library($aColumns, $sIndexColumn, $sTable, $join, $where);
+$result = prepare_grid_query_for_study_library($aColumns, $sIndexColumn, $sTable, $join, $where);
 $output  = $result['output'];
 $rResult = $result['rResult'];
 $prevPage = (($draw - 1) < 0) ? 0 : ($draw-1);
@@ -33,7 +33,7 @@ $nextPage = $draw + 1;
 $nxtStart = ($start +1 ) * $length;
 $prevStart = ($start -1 ) * $length;
 $this->load->library('pagination');
-$config['base_url'] = admin_url('video_library/');
+$config['base_url'] = admin_url('study_library/');
 $config['total_rows'] = $output['iTotalDisplayRecords'];
 $config['per_page'] = $length;
 $config['use_page_numbers'] = TRUE;
@@ -66,32 +66,32 @@ $this->pagination->initialize($config);
          $val=get_upload_thumbnail($aRow['video_id']);
          if(isset($val) && !empty($val->upload_video_thumbnail))
          {
-          $tp = base_url().'uploads/video_library/'. $val->upload_video_thumbnail;
+          $tp = base_url().'uploads/study_library/'. $val->upload_video_thumbnail;
          }elseif($thumbnail_image){
           
           $tp =  base_url().'uploads/company/'. $thumbnail_image;
          }else{
           
-          $tp =  base_url().'modules/video_library/assets/image/grid_back.png';
+          $tp =  base_url().'modules/study_library/assets/image/grid_back.png';
          }
          
-        $hrefAttr = admin_url('video_library/add_video/' . $aRow['video_id']);
+        $hrefAttr = admin_url('study_library/add_video/' . $aRow['video_id']);
         ?>
         <div class="col-md-4">
           <div class="v_o_wr">
             <div class="wrap_video_cl" style="background-image: url(<?php echo $tp ?>);">
               <div class="actn_edit">
-                <?php  if (has_permission('video_library', '', 'delete')) { ?>
+                <?php  if (has_permission('study_library', '', 'delete')) { ?>
                   <div class="wrap_actn_b">
-                    <a class="trash_btn_c _delete" href="<?php echo admin_url('video_library/delete_video/'.$aRow['video_id']);?>">
+                    <a class="trash_btn_c _delete" href="<?php echo admin_url('study_library/delete_video/'.$aRow['video_id']);?>">
                       <span>
                         <i class="fa fa-trash-o" aria-hidden="true"></i> </span> delete 
                       </a>
                     </div>
                   <?php } ?>
-                  <?php if(has_permission('video_library', '', 'edit')){ ?>
+                  <?php if(has_permission('study_library', '', 'edit')){ ?>
                     <div class="wrap_actn_b">
-                      <a class="pencil_btn_c" href="<?php echo admin_url('video_library/add_video/'.$aRow['video_id']);?>">
+                      <a class="pencil_btn_c" href="<?php echo admin_url('study_library/add_video/'.$aRow['video_id']);?>">
                         <span>
                          <i class="fa fa-pencil" aria-hidden="true"></i></span> edit
                        </a>
@@ -103,18 +103,18 @@ $this->pagination->initialize($config);
                  <?php if($aRow['upload_type'] == 'file'){ ?>
                  <a class="player_btn" data-fancybox href="#myVideo_<?php echo $aRow['video_id'] ?>">
                   <span>
-                    <img src="<?php echo base_url('modules/video_library/assets/image/youtube_thumb.png'); ?>" alt="img not found"/>
+                    <img src="<?php echo base_url('modules/study_library/assets/image/youtube_thumb.png'); ?>" alt="img not found"/>
                   </span>
                 </a>
                 <div class="card">
                   <video width="640" height="320" controls id="myVideo_<?php echo $aRow['video_id'] ?>" style="display:none;">
-                    <source src="<?= base_url().'uploads/video_library/'. $aRow['upload_video'];?>" type="video/mp4">
+                    <source src="<?= base_url().'uploads/study_library/'. $aRow['upload_video'];?>" type="video/mp4">
                     </video>
                   </div>
                 <?php }else{ ?>
-                  <a class="player_btn" data-fancybox href="<?php echo base_url().'uploads/video_library/'.$aRow['upload_video'] ?>">
+                  <a class="player_btn" data-fancybox href="<?php echo base_url().'uploads/study_library/'.$aRow['upload_video'] ?>">
                   <span>
-                    <img src="<?php echo base_url('modules/video_library/assets/image/youtube_thumb.png'); ?>" alt="img not found"/>
+                    <img src="<?php echo base_url('modules/study_library/assets/image/youtube_thumb.png'); ?>" alt="img not found"/>
                   </span>
                 </a>
                 <?php } ?>

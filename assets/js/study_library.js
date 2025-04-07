@@ -2,7 +2,7 @@
 var video_id = '';
 
 function init_add_video() {
-    requestGet('video_library/get_video_data').done(function(response) {
+    requestGet('study_library/get_video_data').done(function(response) {
         $('#modal-wrapper').html(response);
         $('#add_video').modal({
             show: true,
@@ -14,7 +14,7 @@ function init_add_video() {
 }
 
 function init_add_categeory() {
-    requestGet('video_library/add_video_categeory').done(function(response) {
+    requestGet('study_library/add_video_categeory').done(function(response) {
         $('#wrapper-modal').html(response);
         $('#add_library_categeory').modal({
             show: true,
@@ -36,7 +36,7 @@ function add_categeory_form() {
     if (form.valid()) {
         $.ajax({
             type: "POST",
-            url: admin_url + 'video_library/add_category_data',
+            url: admin_url + 'study_library/add_category_data',
             data: $('#category_form').serialize(),
             success: function(resp) {
                 if (resp) {
@@ -46,7 +46,7 @@ function add_categeory_form() {
                     alert_float('danger', 'Category Addtion Failed');
                     $("#add_library_categeory").modal('hide');
                 }
-                $('.table-video_library').DataTable().ajax.reload();
+                $('.table-study_library').DataTable().ajax.reload();
             },
 
         });
@@ -65,7 +65,7 @@ function update_categeory_form() {
         var formData = form.serialize();
         $.ajax({
             type: "POST",
-            url: admin_url + 'video_library/update_category_data',
+            url: admin_url + 'study_library/update_category_data',
             data: formData,
             headers: {
                 'X-CSRF-Token': csrfData.formatted.csrf_token_name
@@ -78,7 +78,7 @@ function update_categeory_form() {
                     alert_float('danger', 'Category Updation Failed');
                     $("#edit_category_data").modal('hide');
                 }
-                $('.table-video_library').DataTable().ajax.reload();
+                $('.table-study_library').DataTable().ajax.reload();
             },
 
         });
@@ -98,7 +98,7 @@ function add_video_data() {
     if (form.valid()) {
         $.ajax({
             type: "POST",
-            url: admin_url + 'video_library/add_video_data',
+            url: admin_url + 'study_library/add_video_data',
             data: {
                 data: new FormData($("#add_video_form")[0])
             },
@@ -128,7 +128,7 @@ function add_video_data() {
 $("#category").change(function() {
     var cats = $(this).val();
     var title = $('#search').val();
-    var url = admin_url + 'video_library/search_category_data';
+    var url = admin_url + 'study_library/search_category_data';
     $.post(url, { categories: cats, title: title }, function(res) {
         $('#video_div').html(res);
     });
@@ -137,14 +137,14 @@ $("#category").change(function() {
 function video_search_by_title() {
     var cats = $('#category').val();
     var title = $('#search').val();
-    var url = admin_url + 'video_library/search_category_data';
+    var url = admin_url + 'study_library/search_category_data';
     $.post(url, { categories: cats, title: title }, function(res) {
         $('#video_div').html(res);
     });
 }
 
 function edit_category(e) {
-    requestGet('video_library/edit_category_data/' + $(e).data('id')).done(function(response) {
+    requestGet('study_library/edit_category_data/' + $(e).data('id')).done(function(response) {
         $('#wrapper-modal').html(response);
         $('#edit_category_data').modal({
             show: true,
@@ -174,7 +174,7 @@ function loadVideosGridView() {
 
 function videosGridViewDataCall(a, b, c) {
     $.ajax({
-        url: admin_url + "video_library/video_grid/" + (a.start + 1),
+        url: admin_url + "study_library/video_grid/" + (a.start + 1),
         method: "POST",
         data: a,
         async: true,
@@ -258,14 +258,14 @@ function video_discussion_comments(selector, video_id, discussion_type) {
         },
         currentUserIsAdmin: current_user_is_admin,
         getComments: function(success, error) {
-            $.get(admin_url + 'video_library/get_video_comments/' + video_id + '/' + discussion_type, function(response) {
+            $.get(admin_url + 'study_library/get_video_comments/' + video_id + '/' + discussion_type, function(response) {
                 success(response);
             }, 'json');
         },
         postComment: function(commentJSON, success, error) {
             $.ajax({
                 type: 'post',
-                url: admin_url + 'video_library/add_discussion_comment/' + video_id + '/' + discussion_type,
+                url: admin_url + 'study_library/add_discussion_comment/' + video_id + '/' + discussion_type,
                 data: commentJSON,
                 success: function(comment) {
                     comment = JSON.parse(comment);
@@ -277,7 +277,7 @@ function video_discussion_comments(selector, video_id, discussion_type) {
         putComment: function(commentJSON, success, error) {
             $.ajax({
                 type: 'post',
-                url: admin_url + 'video_library/update_discussion_comment',
+                url: admin_url + 'study_library/update_discussion_comment',
                 data: commentJSON,
                 success: function(comment) {
                     comment = JSON.parse(comment);
@@ -289,7 +289,7 @@ function video_discussion_comments(selector, video_id, discussion_type) {
         deleteComment: function(commentJSON, success, error) {
             $.ajax({
                 type: 'post',
-                url: admin_url + 'video_library/delete_discussion_comment/' + commentJSON.id,
+                url: admin_url + 'study_library/delete_discussion_comment/' + commentJSON.id,
                 success: success,
                 error: error
             });
@@ -322,7 +322,7 @@ function video_discussion_comments(selector, video_id, discussion_type) {
                         formData.append(csrfData['token_name'], csrfData['hash']);
                     }
                     $.ajax({
-                        url: admin_url + 'video_library/add_discussion_comment/' + video_id + '/' + discussion_type,
+                        url: admin_url + 'study_library/add_discussion_comment/' + video_id + '/' + discussion_type,
                         type: 'POST',
                         data: formData,
                         cache: false,

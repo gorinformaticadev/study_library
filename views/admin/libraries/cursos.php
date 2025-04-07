@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <?php init_head(); ?>
-<link rel="stylesheet" type="text/css" href="<?php echo base_url('modules/video_library/assets/css/jquery.fancybox.min.css')?>">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url('modules/video_library/assets/css/video_library.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('modules/study_library/assets/css/jquery.fancybox.min.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('modules/study_library/assets/css/study_library.css')?>">
 <div id="wrapper">
    <div class="content">
       <div class="row">
@@ -19,7 +19,7 @@
                <?php echo render_input('search','','','',['onkeyup'=>'video_search_by_title(); return false;', 'placeholder'=>_l('cf_translate_input_link_title')]); ?>
            </div>
            <div class="col-md-4">
-                   <a href="<?php echo admin_url('video_library/add_video')?>" class="btn btn-info" >
+                   <a href="<?php echo admin_url('study_library/add_video')?>" class="btn btn-info" >
                       <?php echo _l('vl_add_video'); ?>
                   </a>
               </div>
@@ -50,7 +50,7 @@
 </div>
 </div>
 <?php init_tail(); ?>
-<script src="<?php echo base_url('modules/video_library/assets/js/jquery.fancybox.min.js')?>"></script>
+<script src="<?php echo base_url('modules/study_library/assets/js/jquery.fancybox.min.js')?>"></script>
 <script type="text/javascript">
     "use strict";
     var _lnth = 6;

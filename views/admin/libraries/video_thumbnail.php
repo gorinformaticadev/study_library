@@ -6,7 +6,7 @@
       <div class="col-md-12">
         <div class="panel_s">
           <div class="panel-body">
-          <?php echo form_open_multipart($this->uri->uri_string(''), array('id' => 'video_library_thumbnail',));?>
+          <?php echo form_open_multipart($this->uri->uri_string(''), array('id' => 'study_library_thumbnail',));?>
            <?php $login_image = get_option('thumbnail_image'); ?>
           <?php if($login_image != ''){ ?>
 			<div class="row">
@@ -16,7 +16,7 @@
 				</div>
 				<?php if(has_permission('settings','','delete')){ ?>
 					<div class="col-md-8 text-left">
-						<a href="<?php echo base_url('video_library/remove_thumbnail_image'); ?>" data-toggle="tooltip" title="<?php echo _l('remove_thumbnail_tooltip'); ?>" class="_delete text-danger"><i class="fa fa-remove"></i></a>
+						<a href="<?php echo base_url('study_library/remove_thumbnail_image'); ?>" data-toggle="tooltip" title="<?php echo _l('remove_thumbnail_tooltip'); ?>" class="_delete text-danger"><i class="fa fa-remove"></i></a>
 					</div>
 				<?php } ?>
 			</div>

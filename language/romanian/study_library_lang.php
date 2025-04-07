@@ -1,5 +1,5 @@
 <?php
-$lang['vl_video_library']                           = 'Biblioteca video';
+$lang['vl_study_library']                           = 'Biblioteca video';
 $lang['vl_menu']                          			= 'Biblioteca video';
 $lang['vl_videos_submenu']                          = 'Videoclipuri';
 $lang['vl_categories_submenu']                      = 'Categorii';
@@ -11,13 +11,13 @@ $lang['vl_video_description']                      = 'Descriere';
 $lang['vl_video_cate']                      = 'Categorie';
 $lang['vl_video_not_deleted']                      = 'Videoclipul nu se șterge!';
 $lang['vl_video_deleted']                      = 'Videoclipul a fost șters!';
-$lang['new_video_library_added_alert']                      = 'Videoclip adăugat!';
-$lang['new_video_library_added_failed_alert']                      = 'Adăugarea video nu a reușit!';
+$lang['new_study_library_added_alert']                      = 'Videoclip adăugat!';
+$lang['new_study_library_added_failed_alert']                      = 'Adăugarea video nu a reușit!';
 $lang['vl_projects']                      = 'Legat de Proiect';
-$lang['video_library']                   = 'Biblioteca video';
+$lang['study_library']                   = 'Biblioteca video';
 $lang['vl_add_category']                 = 'Adăugați o categorie';
 ## version 101
-$lang['vl_driveurl_placeholder']          = 'Redirecționare uri Ex: https://your_domain/admin/video_library/uploadFileGoogleDrive';
+$lang['vl_driveurl_placeholder']          = 'Redirecționare uri Ex: https://your_domain/admin/study_library/uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = 'Introduceți cheia secretă a unității dvs';
 $lang['vl_ask_for_upload_gdrive']          = 'Doriți să vă încărcați fișierul pe Google Drive';
 $lang['vl_input_yes']                      = 'da';

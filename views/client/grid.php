@@ -24,7 +24,7 @@ if(!empty($cat_ids_arr)) {
 if($CI->input->post('project_id')){
  array_push($where, 'AND '.db_prefix().'upload_video.project_id='.$CI->input->post('project_id')); 
 }
-$result = prepare_grid_query_for_video_library($aColumns, $sIndexColumn, $sTable, $join, $where);
+$result = prepare_grid_query_for_study_library($aColumns, $sIndexColumn, $sTable, $join, $where);
 $output  = $result['output'];
 $rResult = $result['rResult'];
 $prevPage = (($draw - 1) < 0) ? 0 : ($draw-1);
@@ -32,7 +32,7 @@ $nextPage = $draw + 1;
 $nxtStart = ($start +1 ) * $length;
 $prevStart = ($start -1 ) * $length;
 $this->load->library('pagination');
-$config['base_url'] = admin_url('video_library/');
+$config['base_url'] = admin_url('study_library/');
 $config['total_rows'] = $output['iTotalDisplayRecords'];
 $config['per_page'] = $length;
 $config['use_page_numbers'] = TRUE;
@@ -62,7 +62,7 @@ $this->pagination->initialize($config);
     <?php
     if($output['iTotalDisplayRecords'] > 0){
       foreach ($rResult as $aRow) {
-        $hrefAttr = admin_url('video_library/add_video/' . $aRow['video_id']);
+        $hrefAttr = admin_url('study_library/add_video/' . $aRow['video_id']);
 
         ?>
         <div class="col-md-4">
@@ -71,12 +71,12 @@ $this->pagination->initialize($config);
                  <h1><?= $aRow['title']?></h1>
                  <a class="player_btn" data-fancybox href="<?php echo $aRow['upload_type'] == 'file' ? '#myVideo_'.$aRow['video_id'] : $aRow['upload_video'] ?>">
                   <span>
-                    <img src="<?php echo base_url('modules/video_library/assets/image/youtube_thumb.png'); ?>" alt="img not found"/>
+                    <img src="<?php echo base_url('modules/study_library/assets/image/youtube_thumb.png'); ?>" alt="img not found"/>
                   </span>
                 </a>
                 <div class="card">
                   <video width="640" height="320" controls id="myVideo_<?php echo $aRow['video_id'] ?>" style="display:none;">
-                  <source src="<?= $aRow['upload_type'] == 'file' ? base_url().'uploads/video_library/'. $aRow['upload_video'] : $aRow['upload_video'];?>" type="video/mp4">
+                  <source src="<?= $aRow['upload_type'] == 'file' ? base_url().'uploads/study_library/'. $aRow['upload_video'] : $aRow['upload_video'];?>" type="video/mp4">
                     </video>
                   </div>
                 </div>
