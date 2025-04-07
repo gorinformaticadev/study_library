@@ -32,10 +32,20 @@ class Video_library extends AdminController
         $this->app->get_table_data(module_views_path('video_library', 'admin/libraries/table/video_category_table'));
     }
 
-    public function categeory()
+    public function modules()
     {
         $data['data_category'] = $this->video_library_modal->show_category();
-        $this->load->view('admin/libraries/categeory', $data);
+        $this->load->view('admin/libraries/modules', $data);
+    }
+    public function lessons()
+    {
+        $data['data_category'] = $this->video_library_modal->show_category();
+        $this->load->view('admin/libraries/lessons', $data);
+    }
+    public function categeorys()
+    {
+        $data['data_category'] = $this->video_library_modal->show_category();
+        $this->load->view('admin/libraries/categeorys', $data);
     }
 
     public function add_video_categeory()
