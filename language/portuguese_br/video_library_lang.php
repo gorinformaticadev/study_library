@@ -1,6 +1,6 @@
 <?php
 $lang['vl_video_library']                           = 'Biblioteca de vídeos';
-$lang['vl_menu']                          			= 'Biblioteca de vídeos';
+$lang['vl_menu']                          			= 'Cursos';
 $lang['vl_videos_submenu']                          = 'Vídeos';
 $lang['vl_categories_submenu']                      = 'Categorias';
 $lang['vl_add_video']                      = 'Adicionar vídeo';
@@ -32,4 +32,9 @@ $lang['vl_input_option1']                     = 'Arquivo de vídeo';
 $lang['vl_input_option2']                     = 'URL do vídeo';
 $lang['vl_link_url']                     = 'URL';
 $lang['vl_credentials']                     = 'Suas credenciais atualizadas com sucesso';
-
+$lang['vl_courses_submenu'] = 'Cursos';
+$lang['vl_modules_submenu'] = 'Módulos';
+$lang['vl_lessons_submenu'] = 'Aulas';
+$lang['vl_enrollments_submenu'] = 'Matrículas';
+$lang['vl_progress_submenu'] = 'Progresso';
+$lang['vl_certificates_submenu'] = 'Certificados';

@@ -44,75 +44,74 @@ function video_library_module_uninstall_hook()
     require_once(__DIR__ . '/uninstall.php');
 }
 hooks()->add_action('admin_init', 'video_library_module_init_menu_items');
-function video_library_module_init_menu_items()
-{
-    $CI = &get_instance();
-    $CI->app->add_quick_actions_link([
-        'name'       => _l('vl_video_library'),
-        'url'        => 'video_library',
-        'permission' => 'video_library',
-        'position'   => 52,
-    ]);
+function video_library_module_init_menu_items() {
     if (is_admin()) {
-        // The first paremeter is the parent menu ID/Slug
-        $CI->app_menu->add_setup_menu_item('Video_lib_setup', [
-            'collapse' => true,
-            'name' => _l('Video Library'),
-            'position' => 10,
-        ]);
-        $CI->app_menu->add_setup_children_item('Video_lib_setup', [
-            'slug' => 'video_lib_setup-groups',
-            'name' => _l('Google Drive'),
-            'href' => admin_url('video_library/video_drive_setup'),
-            'position' => 5,
-        ]);
-        $CI->app_menu->add_setup_children_item('Video_lib_setup', [
-            'slug' => 'Video_lib_setup-groups_type',
-            'name' => _l('vl_allowed_file_type'),
-            'href' => admin_url('video_library/video_allowed_type_setup'),
-            'position' => 10,
-        ]);
-        $CI->app_menu->add_setup_children_item('Video_lib_setup', [
-            'slug' => 'Video_lib_setup-groups_type',
-            'name' => _l('vl_thumbnail'),
-            'href' => admin_url('video_library/video_thumbnail'),
-            'position' => 10,
-        ]);
-    }
-    if (has_permission('video_library', '', 'view_own') || has_permission('video_library', '', 'view')) {
+        $CI = &get_instance();
+
+        // Menu principal
         $CI->app_menu->add_sidebar_menu_item('video_library', [
             'slug'     => 'video_library',
-            'name'     => _l('vl_menu'),
-            'position' => 10,
-            'icon'     => 'fa fa-video-camera'
+            'name'     => _l('vl_menu'), // Nome principal exibido no menu
+            'position' => 3,
+            'icon'     => 'fa fa-photo-film', // Ícone moderno para biblioteca multimídia
         ]);
+
+        // Submenu: Cursos
         $CI->app_menu->add_sidebar_children_item('video_library', [
-            'slug'     => 'video_library_dashboard',
-            'name'     => _l('vl_videos_submenu'),
-            'href'     => admin_url('video_library/index'),
+            'slug'     => 'video_library_courses',
+            'name'     => _l('vl_courses_submenu'),
+            'href'     => admin_url('video_library/courses'),
             'position' => 1,
+            'icon'     => 'fa fa-graduation-cap', // Ícone para cursos
         ]);
+
+        // Submenu: Módulos
         $CI->app_menu->add_sidebar_children_item('video_library', [
-            'slug'     => 'video_library_categeories',
-            'name'     => _l('vl_categories_submenu'),
-            'href'     => admin_url('video_library/categeory'),
+            'slug'     => 'video_library_modules',
+            'name'     => _l('vl_modules_submenu'),
+            'href'     => admin_url('video_library/modules'),
             'position' => 2,
+            'icon'     => 'fa fa-puzzle-piece', // Ícone para módulos
         ]);
-        $CI->app_tabs->add_project_tab('video_library', [
-            'name'                      => _l('vl_video_library'),
-            'icon'                      => 'fa fa-video-camera',
-            'view'                      => 'video_library/admin/libraries/project_videos',
-            'position'                  => 40,
+
+        // Submenu: Aulas
+        $CI->app_menu->add_sidebar_children_item('video_library', [
+            'slug'     => 'video_library_lessons',
+            'name'     => _l('vl_lessons_submenu'),
+            'href'     => admin_url('video_library/lessons'),
+            'position' => 3,
+            'icon'     => 'fa fa-chalkboard-teacher', // Ícone para aulas
+        ]);
+
+        // Submenu: Matrículas
+        $CI->app_menu->add_sidebar_children_item('video_library', [
+            'slug'     => 'video_library_enrollments',
+            'name'     => _l('vl_enrollments_submenu'),
+            'href'     => admin_url('video_library/video_thumbnail'),
+            'position' => 4,
+            'icon'     => 'fa fa-user-check', // Ícone para matrículas
+        ]);
+
+        // Submenu: Progresso
+        $CI->app_menu->add_sidebar_children_item('video_library', [
+            'slug'     => 'video_library_progress',
+            'name'     => _l('vl_progress_submenu'),
+            'href'     => admin_url('video_library/progress'),
+            'position' => 5,
+            'icon'     => 'fa fa-chart-line', // Ícone para progresso
+        ]);
+
+        // Submenu: Certificados
+        $CI->app_menu->add_sidebar_children_item('video_library', [
+            'slug'     => 'video_library_certificates',
+            'name'     => _l('vl_certificates_submenu'),
+            'href'     => admin_url('video_library/certificates'),
+            'position' => 6,
+            'icon'     => 'fa fa-certificate', // Ícone para certificados
         ]);
     }
-    $capabilities = [];
-    $capabilities['capabilities'] = [
-        'view'   => _l('permission_view') . '(' . _l('permission_global') . ')',
-        'edit'   => _l('permission_edit'),
-        'delete' => _l('permission_delete')
-    ];
-    register_staff_capabilities(MODULE_VIDEO_LIBRARY, $capabilities, _l('vl_video_library'));
 }
+
 hooks()->add_filter('get_upload_path_by_type', 'video_library_get_upload_path_by_type', 10, 2);
 function video_library_get_upload_path_by_type($path, $type)
 {
