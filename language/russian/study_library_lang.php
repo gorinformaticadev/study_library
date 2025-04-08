@@ -1,5 +1,5 @@
 <?php
-$lang['vl_video_library']                           = 'Видеотека';
+$lang['vl_study_library']                           = 'Видеотека';
 $lang['vl_menu']                          			= 'Видеотека';
 $lang['vl_videos_submenu']                          = 'Видео';
 $lang['vl_categories_submenu']                      = 'Категории';
@@ -11,13 +11,13 @@ $lang['vl_video_description']                      = 'Описание';
 $lang['vl_video_cate']                      = 'Категория';
 $lang['vl_video_not_deleted']                      = 'Видео не удалять!';
 $lang['vl_video_deleted']                      = 'Видео удалено!';
-$lang['new_video_library_added_alert']                      = 'Видео добавлено!';
-$lang['new_video_library_added_failed_alert']                      = 'Не удалось добавить видео!';
+$lang['new_study_library_added_alert']                      = 'Видео добавлено!';
+$lang['new_study_library_added_failed_alert']                      = 'Не удалось добавить видео!';
 $lang['vl_projects']                      = 'Связано с проектом';
-$lang['video_library']                   = 'Видеотека';
+$lang['study_library']                   = 'Видеотека';
 $lang['vl_add_category']                 = 'Добавить категорию';
 ## version 101
-$lang['vl_driveurl_placeholder']          = 'URI перенаправления Пример: https://your_domain/admin/video_library/uploadFileGoogleDrive';
+$lang['vl_driveurl_placeholder']          = 'URI перенаправления Пример: https://your_domain/admin/study_library/uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = 'Введите секретный ключ вашего диска';
 $lang['vl_ask_for_upload_gdrive']          = 'Вы хотите загрузить свой файл на Google Диск';
 $lang['vl_input_yes']                      = 'Да';

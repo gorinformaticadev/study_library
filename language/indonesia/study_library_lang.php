@@ -1,5 +1,5 @@
 <?php
-$lang['vl_video_library']                           = 'Perpustakaan Video';
+$lang['vl_study_library']                           = 'Perpustakaan Video';
 $lang['vl_menu']                          			= 'Perpustakaan Video';
 $lang['vl_videos_submenu']                          = 'Video';
 $lang['vl_categories_submenu']                      = 'Kategori';
@@ -11,13 +11,13 @@ $lang['vl_video_description']                      = 'Keterangan';
 $lang['vl_video_cate']                      = 'Kategori';
 $lang['vl_video_not_deleted']                      = 'Video tidak dihapus!';
 $lang['vl_video_deleted']                      = 'Video dihapus!';
-$lang['new_video_library_added_alert']                      = 'Video ditambahkan!';
-$lang['new_video_library_added_failed_alert']                      = 'Penambahan video gagal!';
+$lang['new_study_library_added_alert']                      = 'Video ditambahkan!';
+$lang['new_study_library_added_failed_alert']                      = 'Penambahan video gagal!';
 $lang['vl_projects']                      = 'Terkait dengan Proyek';
-$lang['video_library']                           = 'Perpustakaan Video';
+$lang['study_library']                           = 'Perpustakaan Video';
 $lang['vl_add_category']                      = 'Tambahkan kategori';
 ## version 101
-$lang['vl_driveurl_placeholder']          = 'Redirect uri Contoh: https://domain_anda/admin/video_library/uploadFileGoogleDrive';
+$lang['vl_driveurl_placeholder']          = 'Redirect uri Contoh: https://domain_anda/admin/study_library/uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = 'Masukkan kunci rahasia drive Anda';
 $lang['vl_ask_for_upload_gdrive']          = 'Apakah Anda ingin mengunggah file Anda di Google Drive?';
 $lang['vl_input_yes']                      = 'Ya';

@@ -98,7 +98,7 @@
                         <?php
                         echo render_input('upload_video_thumbnail', _l('vl_video_thumbnail'), '', 'file', [], [],);
                         if (isset($video) && !empty($video->upload_video_thumbnail)) {
-                            echo "<div class='form-group  vl_video_link'><a href='" . base_url() . 'uploads/video_library/' . $video->upload_video_thumbnail . "' download>
+                            echo "<div class='form-group  vl_video_link'><a href='" . base_url() . 'uploads/study_library/' . $video->upload_video_thumbnail . "' download>
             <h5><i class='fa fa-image'></i></h5>
             <p class='d_l_btn'><i class='fa fa-download'></i> Download</p>
             </a> 
@@ -109,7 +109,7 @@
 
                         echo render_input('upload_video', _l('vl_video_file'), '', 'file', [], [], 'showf');
                         if (isset($video) && !empty($video->upload_video)) {
-                            echo "<div class='form-group vl_video_link'><a href='" . base_url() . 'uploads/video_library/' . $video->upload_video . "' download>
+                            echo "<div class='form-group vl_video_link'><a href='" . base_url() . 'uploads/study_library/' . $video->upload_video . "' download>
             <h5><i class='fa fa-video-camera'></i></h5>
             <p class='d_l_btn'><i class='fa fa-download'></i> Download</p>
             </a>
@@ -219,7 +219,7 @@ $vl_conv_allowed_type = implode('|', $dotlessArray);
     });
     $(document).on('click', '.vl_video_link span', function(event) {
         var video_id = $(event.currentTarget).data('id');
-        $.post(admin_url + "video_library/delete_video/" + video_id, function(resp) {
+        $.post(admin_url + "study_library/delete_video/" + video_id, function(resp) {
             resp = JSON.parse(resp);
             if (resp.status == 'success') {
                 location.reload();
@@ -246,7 +246,7 @@ $vl_conv_allowed_type = implode('|', $dotlessArray);
 
     $(document).on('click', '.vl_video_link p', function(event) {
         var video_id = $(event.currentTarget).data('id');
-        $.post(admin_url + "video_library/delete_thumbnail_video/" + video_id, function(resp) {
+        $.post(admin_url + "study_library/delete_thumbnail_video/" + video_id, function(resp) {
             resp = JSON.parse(resp);
             if (resp.status == 'success') {
                 location.reload();

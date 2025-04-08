@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Video_library_modal extends App_Model
+class study_library_modal extends App_Model
 
 {
     public function __construct()
@@ -83,8 +83,8 @@ class Video_library_modal extends App_Model
     {
         $data = $this->db->select('*')->from(db_prefix() . 'upload_video')->where('id', $edit_id)->get()->row();
         if (isset($data) && !empty($data)) {
-            if (is_file(VIDEO_LIBRARY_UPLOADS_FOLDER . $data->upload_video)) {
-                unlink(VIDEO_LIBRARY_UPLOADS_FOLDER . $data->upload_video);
+            if (is_file(study_library_UPLOADS_FOLDER . $data->upload_video)) {
+                unlink(study_library_UPLOADS_FOLDER . $data->upload_video);
                 $this->db->where('id', $edit_id);
                 $this->db->update(db_prefix() . 'upload_video', ['upload_video' => NULL]);
                 return true;
@@ -132,8 +132,8 @@ class Video_library_modal extends App_Model
     {
         $data = $this->db->get_where(db_prefix() . 'upload_video', ['id' => $del_id])->row();
         if (isset($data) && !empty($data)) {
-            if (is_file(VIDEO_LIBRARY_UPLOADS_FOLDER . $data->upload_video)) {
-                unlink(VIDEO_LIBRARY_UPLOADS_FOLDER . $data->upload_video);
+            if (is_file(study_library_UPLOADS_FOLDER . $data->upload_video)) {
+                unlink(study_library_UPLOADS_FOLDER . $data->upload_video);
             }
         }
         $this->db->where('id', $del_id);
@@ -174,8 +174,8 @@ class Video_library_modal extends App_Model
         $data = $this->db->get_where(db_prefix() . 'upload_video', ['category' => $cat_id])->result_array();
         if (isset($data) && !empty($data)) {
             foreach ($data as $video) {
-                if (is_file(VIDEO_LIBRARY_UPLOADS_FOLDER . $video->upload_video)) {
-                    unlink(VIDEO_LIBRARY_UPLOADS_FOLDER . $video->upload_video);
+                if (is_file(study_library_UPLOADS_FOLDER . $video->upload_video)) {
+                    unlink(study_library_UPLOADS_FOLDER . $video->upload_video);
                 }
                 $this->db->where('id', $video->id);
                 $this->db->delete(db_prefix() . 'upload_video');
@@ -193,7 +193,7 @@ class Video_library_modal extends App_Model
     {
         $this->db->where('video_id', $id);
         $this->db->where('discussion_type', $type);
-        $comments = $this->db->get(db_prefix() . 'video_library_videos_comments')->result_array();
+        $comments = $this->db->get(db_prefix() . 'study_library_videos_comments')->result_array();
         $i                    = 0;
         $allCommentsIDS       = [];
         $allCommentsParentIDS = [];
@@ -236,7 +236,7 @@ class Video_library_modal extends App_Model
                 $comments[$i]['profile_picture_url'] = staff_profile_image_url($comment['user_id']);
             }
             if (!is_null($comment['file_name'])) {
-                $comments[$i]['file_url'] = VIDEO_LIBRARY_DISCUSSIONS_ATTACHMENT_FOLDER . $id . '/' . $comment['file_name'];
+                $comments[$i]['file_url'] = study_library_DISCUSSIONS_ATTACHMENT_FOLDER . $id . '/' . $comment['file_name'];
             }
             $comments[$i]['created'] = (strtotime($comment['created']) * 1000);
             if (!empty($comment['modified'])) {
@@ -279,7 +279,7 @@ class Video_library_modal extends App_Model
         }
         $_data                   = handle_video_comment_attachments($video_id, $data, $_data);
         $_data['created']        = date('Y-m-d H:i:s');
-        $this->db->insert(db_prefix() . 'video_library_videos_comments', $_data);
+        $this->db->insert(db_prefix() . 'study_library_videos_comments', $_data);
         $insert_id = $this->db->insert_id();
         if ($insert_id) {
             if ($type == 'regular') {
@@ -295,7 +295,7 @@ class Video_library_modal extends App_Model
     {
         $comment = $this->get_discussion_comment($data['id']);
         $this->db->where('id', $data['id']);
-        $this->db->update(db_prefix() . 'video_library_videos_comments', [
+        $this->db->update(db_prefix() . 'study_library_videos_comments', [
             'modified' => date('Y-m-d H:i:s'),
             'content'  => $data['content'],
         ]);
@@ -306,7 +306,7 @@ class Video_library_modal extends App_Model
     public function get_discussion_comment($id)
     {
         $this->db->where('id', $id);
-        $comment = $this->db->get(db_prefix() . 'video_library_videos_comments')->row();
+        $comment = $this->db->get(db_prefix() . 'study_library_videos_comments')->row();
         if ($comment->contact_id != 0) {
             if (is_client_logged_in()) {
                 if ($comment->contact_id == get_contact_user_id()) {
@@ -344,14 +344,14 @@ class Video_library_modal extends App_Model
             $comment->modified = (strtotime($comment->modified) * 1000);
         }
         if (!is_null($comment->file_name)) {
-            $comment->file_url = VIDEO_LIBRARY_DISCUSSIONS_ATTACHMENT_FOLDER . $comment->video_id . '/' . $comment->file_name;
+            $comment->file_url = study_library_DISCUSSIONS_ATTACHMENT_FOLDER . $comment->video_id . '/' . $comment->file_name;
         }
         return $comment;
     }
     public function video_discussion_count($video_id = '')
     {
         $this->db->select('count(id) as total');
-        $this->db->from(db_prefix() . 'video_library_videos_comments');
+        $this->db->from(db_prefix() . 'study_library_videos_comments');
         $this->db->where(['video_id' => $video_id]);
         $ret = $this->db->get()->row();
         return isset($ret->total) ? $ret->total : 0;
@@ -360,7 +360,7 @@ class Video_library_modal extends App_Model
     {
         $discussion = $this->get_discussion_comment($id);
         $this->db->where('id', $id);
-        $this->db->delete(db_prefix() . 'video_library_videos_comments');
+        $this->db->delete(db_prefix() . 'study_library_videos_comments');
         if ($this->db->affected_rows() > 0) {
             $this->_delete_discussion_comments($id, 'regular');
 
@@ -373,17 +373,17 @@ class Video_library_modal extends App_Model
     {
         $this->db->where('video_id', $id);
         $this->db->where('discussion_type', $type);
-        $comments = $this->db->get(db_prefix() . 'video_library_videos_comments')->result_array();
+        $comments = $this->db->get(db_prefix() . 'study_library_videos_comments')->result_array();
         foreach ($comments as $comment) {
             $this->delete_discussion_comment_attachment($comment['file_name'], $id);
         }
         $this->db->where('video_id', $id);
         $this->db->where('discussion_type', $type);
-        $this->db->delete(db_prefix() . 'video_library_videos_comments');
+        $this->db->delete(db_prefix() . 'study_library_videos_comments');
     }
     public function delete_discussion_comment_attachment($file_name, $video_id)
     {
-        $path = VIDEO_LIBRARY_DISCUSSIONS_ATTACHMENT_FOLDER . $video_id;
+        $path = study_library_DISCUSSIONS_ATTACHMENT_FOLDER . $video_id;
         if (!is_null($file_name)) {
             if (file_exists($path . '/' . $file_name)) {
                 unlink($path . '/' . $file_name);
@@ -410,8 +410,8 @@ Drive Upload Update
     {
         $data = $this->db->select('*')->from(db_prefix() . 'upload_video')->where('id', $edit_id)->get()->row();
         if (isset($data) && !empty($data)) {
-            if (is_file(VIDEO_LIBRARY_UPLOADS_FOLDER . $data->upload_video_thumbnail)) {
-                unlink(VIDEO_LIBRARY_UPLOADS_FOLDER . $data->upload_video_thumbnail);
+            if (is_file(study_library_UPLOADS_FOLDER . $data->upload_video_thumbnail)) {
+                unlink(study_library_UPLOADS_FOLDER . $data->upload_video_thumbnail);
                 $this->db->where('id', $edit_id);
                 $this->db->update(db_prefix() . 'upload_video', ['upload_video_thumbnail' => NULL]);
                 return true;

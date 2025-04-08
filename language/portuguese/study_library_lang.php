@@ -1,5 +1,5 @@
 <?php
-$lang['vl_video_library']                           = 'Biblioteca de vídeos';
+$lang['vl_study_library']                           = 'Biblioteca de vídeos';
 $lang['vl_menu']                          			= 'Biblioteca de vídeos';
 $lang['vl_videos_submenu']                          = 'Vídeos';
 $lang['vl_categories_submenu']                      = 'Categorias';
@@ -11,13 +11,13 @@ $lang['vl_video_description']                      = 'Descrição';
 $lang['vl_video_cate']                      = 'Categoria';
 $lang['vl_video_not_deleted']                      = 'Vídeo não deletar!';
 $lang['vl_video_deleted']                      = 'Vídeo excluído!';
-$lang['new_video_library_added_alert']                      = 'Vídeo adicionado!';
-$lang['new_video_library_added_failed_alert']                      = 'Falha na adição de vídeo!';
+$lang['new_study_library_added_alert']                      = 'Vídeo adicionado!';
+$lang['new_study_library_added_failed_alert']                      = 'Falha na adição de vídeo!';
 $lang['vl_projects']                      = 'Relacionado ao Projeto';
-$lang['video_library']                   = 'Biblioteca de vídeos';
+$lang['study_library']                   = 'Biblioteca de vídeos';
 $lang['vl_add_category']                 = 'Adicionar categoria';
 ## version 101
-$lang['vl_driveurl_placeholder']          = 'Redirecionar uri Ex: https://your_domain/admin/video_library/uploadFileGoogleDrive';
+$lang['vl_driveurl_placeholder']          = 'Redirecionar uri Ex: https://your_domain/admin/study_library/uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = 'Digite sua chave secreta da unidade';
 $lang['vl_ask_for_upload_gdrive']          = 'Deseja fazer upload de seu arquivo no Google Drive';
 $lang['vl_input_yes']                      = 'Sim';

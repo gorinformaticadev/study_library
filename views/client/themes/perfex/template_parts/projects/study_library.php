@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
-<link rel="stylesheet" type="text/css" href="<?php echo base_url('modules/video_library/assets/css/jquery.fancybox.min.css')?>">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url('modules/video_library/assets/css/video_library.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('modules/study_library/assets/css/jquery.fancybox.min.css')?>">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('modules/study_library/assets/css/study_library.css')?>">
 <div class="content">
   <div class="row">
    <div class="col-md-12">
@@ -26,5 +26,5 @@
 </div>
 </div>
 </div>
-<script src="<?php echo module_dir_url('video_library', '/assets/js/jquery.fancybox.min.js'); ?>"></script>
-<script src="<?php echo module_dir_url('video_library', '/assets/js/client_project_library.js'); ?>"></script>
+<script src="<?php echo module_dir_url('study_library', '/assets/js/jquery.fancybox.min.js'); ?>"></script>
+<script src="<?php echo module_dir_url('study_library', '/assets/js/client_project_library.js'); ?>"></script>

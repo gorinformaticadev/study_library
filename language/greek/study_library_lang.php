@@ -1,5 +1,5 @@
 <?php
-$lang['vl_video_library']                           = 'Βιβλιοθήκη βίντεο';
+$lang['vl_study_library']                           = 'Βιβλιοθήκη βίντεο';
 $lang['vl_menu']                          			= 'Βιβλιοθήκη βίντεο';
 $lang['vl_videos_submenu']                          = 'Βίντεο';
 $lang['vl_categories_submenu']                      = 'Κατηγορίες';
@@ -11,13 +11,13 @@ $lang['vl_video_description']                      = 'Περιγραφή';
 $lang['vl_video_cate']                      = 'Κατηγορία';
 $lang['vl_video_not_deleted']                      = 'Το βίντεο δεν διαγράφεται!';
 $lang['vl_video_deleted']                      = 'Το βίντεο διαγράφηκε!';
-$lang['new_video_library_added_alert']                      = 'Προστέθηκε βίντεο!';
-$lang['new_video_library_added_failed_alert']                      = 'Η προσθήκη βίντεο απέτυχε!';
+$lang['new_study_library_added_alert']                      = 'Προστέθηκε βίντεο!';
+$lang['new_study_library_added_failed_alert']                      = 'Η προσθήκη βίντεο απέτυχε!';
 $lang['vl_projects']                      = 'Σχετικά με το έργο';
-$lang['video_library']                           = 'Βιβλιοθήκη βίντεο';
+$lang['study_library']                           = 'Βιβλιοθήκη βίντεο';
 $lang['vl_add_category']                      = 'Προσθήκη κατηγορίας';
 ## version 101
-$lang['vl_driveurl_placeholder']          = 'Ανακατεύθυνση uri Π.χ.: https://your_domain/admin/video_library/uploadFileGoogleDrive';
+$lang['vl_driveurl_placeholder']          = 'Ανακατεύθυνση uri Π.χ.: https://your_domain/admin/study_library/uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = 'Εισαγάγετε το μυστικό κλειδί της μονάδας δίσκου σας';
 $lang['vl_ask_for_upload_gdrive']          = 'Θέλετε να ανεβάσετε το αρχείο σας στο Google Drive';
 $lang['vl_input_yes']                      = 'Ναί';

@@ -1,5 +1,5 @@
 <?php
-$lang['vl_video_library']                           = 'Videobibliotek';
+$lang['vl_study_library']                           = 'Videobibliotek';
 $lang['vl_menu']                          			= 'Videobibliotek';
 $lang['vl_videos_submenu']                          = 'videoklipp';
 $lang['vl_categories_submenu']                      = 'Kategorier';
@@ -11,13 +11,13 @@ $lang['vl_video_description']                      = 'Beskrivning';
 $lang['vl_video_cate']                      = 'Kategori';
 $lang['vl_video_not_deleted']                      = 'Videon raderas inte!';
 $lang['vl_video_deleted']                      = 'Videon raderad!';
-$lang['new_video_library_added_alert']                      = 'Video har lagts till!';
-$lang['new_video_library_added_failed_alert']                      = 'Videotillägg misslyckades!';
+$lang['new_study_library_added_alert']                      = 'Video har lagts till!';
+$lang['new_study_library_added_failed_alert']                      = 'Videotillägg misslyckades!';
 $lang['vl_projects']                      = 'Relaterat till projekt';
-$lang['video_library']                   = 'Videobibliotek';
+$lang['study_library']                   = 'Videobibliotek';
 $lang['vl_add_category']                 = 'Lägg till Kategori';
 ## version 101
-$lang['vl_driveurl_placeholder']          = 'Omdirigera uri Ex: https://din_domän/admin/video_library/uploadFileGoogleDrive';
+$lang['vl_driveurl_placeholder']          = 'Omdirigera uri Ex: https://din_domän/admin/study_library/uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = 'Ange din hemliga nyckel för enheten';
 $lang['vl_ask_for_upload_gdrive']          = 'Vill du ladda upp din fil på Google Drive';
 $lang['vl_input_yes']                      = 'Ja';

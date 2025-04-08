@@ -7,7 +7,7 @@ class Client extends ClientsController
  {
     parent::__construct();
     $CI = &get_instance();
-    $this->load->model('video_library_modal');
+    $this->load->model('study_library_modal');
 }
 
 public function project($id)
@@ -32,7 +32,7 @@ if (!$this->input->get('group')) {
 $data['group']    = $group;
 $data['currency'] = $this->projects_model->get_currency($id);
 $data['members']  = $this->projects_model->get_project_members($id);
-$data['categories']  = $this->video_library_modal->show_category();
+$data['categories']  = $this->study_library_modal->show_category();
 $this->data($data);
 $this->view('client/project');
 $this->layout();
@@ -55,7 +55,7 @@ public function search_category_data()
 {
     $post_data['categories'] = $this->input->post('categories');
     $post_data['title'] = $this->input->post('title');
-    $result = $this->video_library_modal->search_title_category($post_data);
+    $result = $this->study_library_modal->search_title_category($post_data);
     $data = '<div class="row">';
     foreach($result as $data_show)
     {
@@ -65,12 +65,12 @@ public function search_category_data()
         $data .= '<h1>'. $data_show['title'].'</h1>';
         $data .= '<a class="player_btn" data-fancybox href="#myVideo_'. $data_show['id'].'">';
         $data .= '<span>
-        <img src="'.base_url('modules/video_library/assets/image/youtube_thumb.png').'" alt="img not found"/>
+        <img src="'.base_url('modules/study_library/assets/image/youtube_thumb.png').'" alt="img not found"/>
         </span>
         </a>';
         $data .= '<div class="card">';
         $data .= '<video width="640" height="320" controls id="myVideo_'. $data_show['id'] .'" style="display:none;">';
-        $data .= '<source src="'. $data_show['upload_type'] == 'file' ? base_url().'uploads/video_library/'. $data_show['upload_video'] : $data_show['upload_video'] .'" type="video/mp4">';
+        $data .= '<source src="'. $data_show['upload_type'] == 'file' ? base_url().'uploads/study_library/'. $data_show['upload_video'] : $data_show['upload_video'] .'" type="video/mp4">';
         $data .= '</video>
         </div>
         </div>';
@@ -90,11 +90,11 @@ public function search_category_data()
 }
 public function get_video_comments($id, $type)
 {
-    echo json_encode($this->video_library_modal->get_video_comments($id, $type));
+    echo json_encode($this->study_library_modal->get_video_comments($id, $type));
 }
 public function add_discussion_comment($video_id, $type)
 {
-    echo json_encode($this->video_library_modal->add_discussion_comment(
+    echo json_encode($this->study_library_modal->add_discussion_comment(
         $this->input->post(null, false),
         $video_id,
         $type
@@ -103,10 +103,10 @@ public function add_discussion_comment($video_id, $type)
 
 public function update_discussion_comment()
 {
-    echo json_encode($this->video_library_modal->update_discussion_comment($this->input->post(null, false)));
+    echo json_encode($this->study_library_modal->update_discussion_comment($this->input->post(null, false)));
 }
 public function delete_discussion_comment($id)
 {
-    echo json_encode($this->video_library_modal->delete_discussion_comment($id));
+    echo json_encode($this->study_library_modal->delete_discussion_comment($id));
 }
 }

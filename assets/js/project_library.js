@@ -4,7 +4,7 @@ var video_id = '';
 $(function() {
     var baseUrl = (window.location).href; // You can also use document.URL
     var project_id = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
-    var node = '<li role="presentation" class="project_tab_video_library"><a data-group="project_video_library" href="' + baseUrl + '" role="tab"><i class="fa fa-video-camera" aria-hidden="true"></i> Video library </a></li>';
+    var node = '<li role="presentation" class="project_tab_study_library"><a data-group="project_study_library" href="' + baseUrl + '" role="tab"><i class="fa fa-video-camera" aria-hidden="true"></i> Video library </a></li>';
     $('.nav-tabs').append(node);
     loadVideosGridView();
 });
@@ -32,7 +32,7 @@ function loadVideosGridView() {
 
 function videosGridViewDataCall(a, b, c) {
     $.ajax({
-        url: admin_url + "video_library/video_grid/" + (a.start + 1),
+        url: admin_url + "study_library/video_grid/" + (a.start + 1),
         method: "POST",
         data: a,
         async: true,
@@ -74,7 +74,7 @@ function video_search_by_title() {
     var cats = $('#category').val();
     var title = $('#search').val();
     var project_id = $("input[name='project_id']").val();
-    var url = admin_url + 'video_library/search_category_data';
+    var url = admin_url + 'study_library/search_category_data';
     $.post(url, { categories: cats, title: title, project_id: project_id }, function(res) {
         $('#video_div').html(res);
     });
@@ -83,7 +83,7 @@ $("#category").change(function() {
     var cats = $(this).val();
     var title = $('#search').val();
     var project_id = $("input[name='project_id']").val();
-    var url = admin_url + 'video_library/search_category_data';
+    var url = admin_url + 'study_library/search_category_data';
     $.post(url, { categories: cats, title: title, project_id: project_id }, function(res) {
         $('#video_div').html(res);
     });
@@ -159,14 +159,14 @@ function video_discussion_comments(selector, video_id, discussion_type) {
         },
         currentUserIsAdmin: current_user_is_admin,
         getComments: function(success, error) {
-            $.get(admin_url + 'video_library/get_video_comments/' + video_id + '/' + discussion_type, function(response) {
+            $.get(admin_url + 'study_library/get_video_comments/' + video_id + '/' + discussion_type, function(response) {
                 success(response);
             }, 'json');
         },
         postComment: function(commentJSON, success, error) {
             $.ajax({
                 type: 'post',
-                url: admin_url + 'video_library/add_discussion_comment/' + video_id + '/' + discussion_type,
+                url: admin_url + 'study_library/add_discussion_comment/' + video_id + '/' + discussion_type,
                 data: commentJSON,
                 success: function(comment) {
                     comment = JSON.parse(comment);
@@ -178,7 +178,7 @@ function video_discussion_comments(selector, video_id, discussion_type) {
         putComment: function(commentJSON, success, error) {
             $.ajax({
                 type: 'post',
-                url: admin_url + 'video_library/update_discussion_comment',
+                url: admin_url + 'study_library/update_discussion_comment',
                 data: commentJSON,
                 success: function(comment) {
                     comment = JSON.parse(comment);
@@ -190,7 +190,7 @@ function video_discussion_comments(selector, video_id, discussion_type) {
         deleteComment: function(commentJSON, success, error) {
             $.ajax({
                 type: 'post',
-                url: admin_url + 'video_library/delete_discussion_comment/' + commentJSON.id,
+                url: admin_url + 'study_library/delete_discussion_comment/' + commentJSON.id,
                 success: success,
                 error: error
             });
@@ -223,7 +223,7 @@ function video_discussion_comments(selector, video_id, discussion_type) {
                         formData.append(csrfData['token_name'], csrfData['hash']);
                     }
                     $.ajax({
-                        url: admin_url + 'video_library/add_discussion_comment/' + video_id + '/' + discussion_type,
+                        url: admin_url + 'study_library/add_discussion_comment/' + video_id + '/' + discussion_type,
                         type: 'POST',
                         data: formData,
                         cache: false,

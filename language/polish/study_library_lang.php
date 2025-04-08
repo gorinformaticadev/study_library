@@ -1,5 +1,5 @@
 <?php
-$lang['vl_video_library']                           = 'Biblioteka wideo';
+$lang['vl_study_library']                           = 'Biblioteka wideo';
 $lang['vl_menu']                          			= 'Biblioteka wideo';
 $lang['vl_videos_submenu']                          = 'Filmy';
 $lang['vl_categories_submenu']                      = 'Kategorie';
@@ -11,13 +11,13 @@ $lang['vl_video_description']                      = 'Opis';
 $lang['vl_video_cate']                      = 'Kategoria';
 $lang['vl_video_not_deleted']                      = 'Film nie jest usuwany!';
 $lang['vl_video_deleted']                      = 'Film usunięty!';
-$lang['new_video_library_added_alert']                      = 'Dodano wideo!';
-$lang['new_video_library_added_failed_alert']                      = 'Dodawanie wideo nie powiodło się!';
+$lang['new_study_library_added_alert']                      = 'Dodano wideo!';
+$lang['new_study_library_added_failed_alert']                      = 'Dodawanie wideo nie powiodło się!';
 $lang['vl_projects']                      = 'Powiązane z projektem';
-$lang['video_library']                   = 'Biblioteka wideo';
+$lang['study_library']                   = 'Biblioteka wideo';
 $lang['vl_add_category']                 = 'Dodaj kategorię';
 ## version 101
-$lang['vl_driveurl_placeholder']          = 'Identyfikator URI przekierowania Przykład: https://twoja_domena/admin/video_library/uploadFileGoogleDrive';
+$lang['vl_driveurl_placeholder']          = 'Identyfikator URI przekierowania Przykład: https://twoja_domena/admin/study_library/uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = 'Wpisz tajny klucz dysku';
 $lang['vl_ask_for_upload_gdrive']          = 'Czy chcesz przesłać swój plik na Dysk Google?';
 $lang['vl_input_yes']                      = 'tak';
