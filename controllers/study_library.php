@@ -31,11 +31,30 @@ class study_library extends AdminController
     {
         $this->app->get_table_data(module_views_path('study_library', 'admin/libraries/table/video_category_table'));
     }
-
+    public function courses()
+    {
+        $data['data_category'] = $this->study_library_modal->show_category();
+        $this->load->view('admin/libraries/courses', $data);
+    }
     public function modules()
     {
         $data['data_category'] = $this->study_library_modal->show_category();
         $this->load->view('admin/libraries/modules', $data);
+    }
+    public function resgistration()
+    {
+        $data['data_category'] = $this->study_library_modal->show_category();
+        $this->load->view('admin/libraries/resgistration', $data);
+    }
+    public function progress()
+    {
+        $data['data_category'] = $this->study_library_modal->show_category();
+        $this->load->view('admin/libraries/progress', $data);
+    }
+    public function certificates()
+    {
+        $data['data_category'] = $this->study_library_modal->show_category();
+        $this->load->view('admin/libraries/certificates', $data);
     }
     public function lessons()
     {
