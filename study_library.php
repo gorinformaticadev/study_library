@@ -1,10 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 /*
-Module Name: Video Library Module
-Description: Video Library For Training 
-Version: 1.0.2
-Author: Zonvoir
-Author URI: https://zonvoir.com/
+Module Name: Study Library
+Description: Study Library For Training 
+Version: 1.0.0
+Author: GOR Informática
+Author URI: https://gorinformatica.com.br/
 Requires at least: 2.3.*
 */
 if (!defined('MODULE_study_library')) {
