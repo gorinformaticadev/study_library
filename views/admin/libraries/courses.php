@@ -1,50 +1,71 @@
-<div class="panel_s">
-  <div class="panel-body">
-    <h3 class="no-margin">Curso: <?php echo $course['name']; ?></h3>
-    <p><?php echo $course['description']; ?></p>
+<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
+<?php init_head(); ?>
+<div id="wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel_s">
+          <div class="panel-body">
+            <div class="clearfix">
+              <h4 class="pull-left"><?php echo _l('vl_courses_submenu'); ?></h4>
+              <a href="#" class="btn btn-info pull-right" data-toggle="modal" data-target="#addCourseModal">
+                <i class="fa fa-plus"></i> <?php echo _l('vl_add_course'); ?>
+              </a>
+            </div>
+            <hr>
+            <table class="table table-courses">
+              <thead>
+                <tr>
+                  <th><?php echo _l('ID'); ?></th>
+                  <th><?php echo _l('vl_course_name'); ?></th>
+                  <th><?php echo _l('vl_course_description'); ?></th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($courses as $course) { ?>
+                  <tr>
+                    <td><?php echo $course['id']; ?></td>
+                    <td><?php echo $course['name']; ?></td>
+                    <td><?php echo $course['description']; ?></td>
+                  </tr>
+                <?php } ?>
+              </tbody>
+            </table>
 
-    <?php if (!$this->study_model->is_user_enrolled(get_staff_user_id(), $course['id'])) : ?>
-      <a href="<?php echo admin_url('study/enroll/' . $course['id']); ?>" class="btn btn-success">Inscreva-se</a>
-    <?php else : ?>
-      <div class="progress mtop20">
-        <div id="course-progress-bar" class="progress-bar" role="progressbar" style="width:0%"></div>
+            <!-- Modal para adicionar curso -->
+            <div class="modal fade" id="addCourseModal" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <form action="#" method="post">
+                    <div class="modal-header">
+                      <h4 class="modal-title"><?php echo _l('vl_add_course'); ?></h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label><?php echo _l('vl_course_name'); ?></label>
+                        <input type="text" name="name" class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                        <label><?php echo _l('vl_course_description'); ?></label>
+                        <textarea name="description" class="form-control"></textarea>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo _l('Cancelar'); ?></button>
+                      <button type="submit" class="btn btn-info"><?php echo _l('Salvar'); ?></button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- /Modal -->
+          </div>
+        </div>
       </div>
-      <hr>
-
-      <?php foreach ($modules as $module) : ?>
-        <h4><?php echo $module['name']; ?></h4>
-        <ul class="list-group">
-          <?php foreach ($module['lessons'] as $lesson) : ?>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <?php echo $lesson['title']; ?>
-              <button class="btn btn-sm btn-outline-success mark-complete" data-id="<?php echo $lesson['id']; ?>">Concluir</button>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-      <?php endforeach; ?>
-
-      <a href="<?php echo admin_url('study/certificate/' . $course['id']); ?>" class="btn btn-info mtop20">Baixar Certificado</a>
-    <?php endif; ?>
+    </div>
   </div>
 </div>
-
-<script>
-$(function () {
-  updateProgress();
-
-  $('.mark-complete').on('click', function () {
-    const lessonId = $(this).data('id');
-    $.post(admin_url + 'study/mark_lesson/' + lessonId, function () {
-      alert('Aula marcada como concluída!');
-      updateProgress();
-    });
-  });
-
-  function updateProgress() {
-    $.get(admin_url + 'study/progress/' + <?php echo $course['id']; ?>, function (res) {
-      const json = JSON.parse(res);
-      $('#course-progress-bar').css('width', json.progress + '%').text(json.progress + '%');
-    });
-  }
-});
-</script>
+<?php init_tail(); ?>

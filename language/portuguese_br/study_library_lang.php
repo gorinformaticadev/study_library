@@ -38,3 +38,8 @@ $lang['vl_lessons_submenu'] = 'Aulas';
 $lang['vl_enrollments_submenu'] = 'Matrículas';
 $lang['vl_progress_submenu'] = 'Progresso';
 $lang['vl_certificates_submenu'] = 'Certificados';
+
+$lang['vl_courses_submenu'] = 'Cursos';
+$lang['vl_add_course'] = 'Adicionar Curso';
+$lang['vl_course_name'] = 'Nome do Curso';
+$lang['vl_course_description'] = 'Descrição do Curso';

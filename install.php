@@ -76,4 +76,12 @@ if (!$CI->db->table_exists(db_prefix() . 'video_category')) {
             
          }
          
-         
+         if (!$CI->db->table_exists(db_prefix() . 'study_library_courses')) {
+            $CI->db->query('CREATE TABLE `' . db_prefix() . 'study_library_courses` (
+                `id` INT(11) NOT NULL AUTO_INCREMENT,
+                `name` VARCHAR(255) NOT NULL,
+                `description` TEXT NULL,
+                `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=' . $CI->db->char_set . ';');
+        }
