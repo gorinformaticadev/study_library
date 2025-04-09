@@ -57,7 +57,7 @@ function study_library_module_init_menu_items()
         // The first paremeter is the parent menu ID/Slug
         $CI->app_menu->add_setup_menu_item('Video_lib_setup', [
             'collapse' => true,
-            'name' => _l('Video Library'),
+            'name' => _l('Study Library'),
             'position' => 10,
         ]);
         $CI->app_menu->add_setup_children_item('Video_lib_setup', [

@@ -1,7 +1,7 @@
 <?php
-$lang['study_library']                           = 'Video Library';
-$lang['vl_study_library']                           = 'Video Library';
-$lang['vl_menu']                          			= 'Video Library';
+$lang['study_library']                           = 'Study Library';
+$lang['vl_study_library']                           = 'Study Library';
+$lang['vl_menu']                          			= 'Study Library';
 $lang['vl_videos_submenu']                          = 'Videos';
 $lang['vl_categories_submenu']                      = 'Categories';
 $lang['vl_add_video']                      = 'Add video';

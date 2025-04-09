@@ -238,7 +238,7 @@ function handle_study_library_video_upload($vlid = '')
                 _maybe_create_upload_path($path);
                 $filename    = unique_filename($path, $_FILES['upload_video']['name']);
                 $newFilePath = $path . $filename;
-                // Upload the file into the video library uploads dir
+                // Upload the file into the Study library uploads dir
                 if (move_uploaded_file($tmpFilePath, $newFilePath)) {
                     $CI             = &get_instance();
                     $CI->db->where('id', $vlid);

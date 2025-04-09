@@ -4,7 +4,7 @@ var video_id = '';
 $(function(){
     var baseUrl = (window.location).href; // You can also use document.URL
     var project_id = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
-    var node = '<li role="presentation" class="project_tab_study_library"><a data-group="project_study_library" href="'+baseUrl+'" role="tab"><i class="fa fa-video-camera" aria-hidden="true"></i> Video library </a></li>';
+    var node = '<li role="presentation" class="project_tab_study_library"><a data-group="project_study_library" href="'+baseUrl+'" role="tab"><i class="fa fa-video-camera" aria-hidden="true"></i> Study</a></li>';
     $('.nav-tabs').append(node);
     loadVideosGridView();
 });
