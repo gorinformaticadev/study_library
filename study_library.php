@@ -2,7 +2,7 @@
 /*
 Module Name: Study Library Module
 Description: Modulo para aulas
-Version: 0.9
+Version: 1.9
 Author: GOR Informatica
 Author URI: https://gorinformatica.com.br
 Requires at least: 2.3.*
