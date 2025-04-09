@@ -1,13 +1,4 @@
-<?php
-/*
-*
-*   arquivo: views/admin/libraries/study_library.php
-*   descrição: Este arquivo contém a view principal para a biblioteca de estudos no painel de administração.
-*   Ele inclui a seleção de categorias, a busca por título e a opção de adicionar novos vídeos.
-*   Também renderiza a lista de vídeos e o modal para discussões.
-*
-*/
-defined('BASEPATH') or exit('No direct script access allowed'); ?>
+<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <?php init_head(); ?>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('modules/study_library/assets/css/jquery.fancybox.min.css')?>">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('modules/study_library/assets/css/study_library.css')?>">
@@ -20,29 +11,12 @@ defined('BASEPATH') or exit('No direct script access allowed'); ?>
                 <div class="row">
               <div class="col-md-4">
                <?php
-               /*
-               *   render_select: Renderiza um campo de select (dropdown) para selecionar as categorias.
-               *   'category': Nome do campo.
-               *   $data_category: Array com os dados para popular o select.
-               *   array('id','category'): Array que define os campos 'id' e 'category' como os valores e textos a serem exibidos no select.
-               *   '': Valor selecionado.
-               *   array('multiple'=>true,'data-none-selected-text' => _l('vl_categories_submenu')): Array de atributos para o select, neste caso, permite a seleção de múltiplas categorias e define o texto a ser exibido quando nenhuma categoria for selecionada.
-               *   [],[],'','',false: Array de classes CSS.
-               */
                $data_category = isset($data_category) && !empty($data_category) ? $data_category : [];
                echo render_select('category',$data_category,array('id','category'),'','',array('multiple'=>true,'data-none-selected-text' => _l('vl_categories_submenu')),[],'','',false);
                ?>
            </div>
            <div class="col-lg-4">
-               <?php
-               /*
-               *   render_input: Renderiza um campo de input do tipo texto para a busca por título.
-               *   'search': Nome do campo.
-               *   '': Valor do campo.
-               *   '': Tipo do campo.
-               *   array('onkeyup'=>'video_search_by_title(); return false;', 'placeholder'=>_l('cf_translate_input_link_title')): Array de atributos para o input, neste caso, define a função a ser executada quando o usuário digitar algo no campo e o placeholder.
-               */
-                echo render_input('search','','','',['onkeyup'=>'video_search_by_title(); return false;', 'placeholder'=>_l('cf_translate_input_link_title')]); ?>
+               <?php echo render_input('search','','','',['onkeyup'=>'video_search_by_title(); return false;', 'placeholder'=>_l('cf_translate_input_link_title')]); ?>
            </div>
            <div class="col-md-4">
                    <a href="<?php echo admin_url('study_library/add_video')?>" class="btn btn-info" >
