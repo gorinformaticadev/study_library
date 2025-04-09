@@ -15,7 +15,7 @@ $lang['new_study_library_added_alert']                      = '视频已添加�
 $lang['new_study_library_added_failed_alert']                      = '视频添加失败！';
 $lang['vl_projects']                      = '与项目相关';
 $lang['study_library']                           = '视频库';
-$lang['vl_add_category']                      = '添加類別';
+$lang['vl_add_category']                      = '添加课程';
 ## version 101
 $lang['vl_driveurl_placeholder']          = '重定向 uri 例如：https://your_domain/admin/study_library/uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = '输入您的驱动器密钥';

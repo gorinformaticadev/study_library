@@ -29,6 +29,8 @@ class study_library extends AdminController
     }
     public function video_category_table()
     {
+        $search_category = $this->input->post('search_category');
+        $this->db->like('category_name', $search_category);
         $this->app->get_table_data(module_views_path('study_library', 'admin/libraries/table/video_category_table'));
     }
 

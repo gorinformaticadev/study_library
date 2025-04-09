@@ -15,7 +15,7 @@ $lang['vl_video_deleted']                      = 'S\'ha suprimit el vídeo!';
 $lang['new_study_library_added_alert']                      = 'Vídeo afegit!';
 $lang['new_study_library_added_failed_alert']                      = 'No s\'ha pogut afegir el vídeo!';
 $lang['vl_projects']                      = 'Relacionat amb el Projecte';
-$lang['vl_add_category']                      = 'Afegeix una categoria';
+$lang['vl_add_category']                      = 'Afegeix un curs';
 ## version 101
 $lang['vl_driveurl_placeholder']          = 'Redirecció uri Ex: https://your_domain/admin/study_library/uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = 'Introduïu la clau secreta de la vostra unitat';

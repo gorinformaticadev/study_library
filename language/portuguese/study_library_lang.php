@@ -2,20 +2,20 @@
 $lang['vl_study_library']                           = 'Biblioteca de vídeos';
 $lang['vl_menu']                          			= 'Biblioteca de vídeos';
 $lang['vl_videos_submenu']                          = 'Vídeos';
-$lang['vl_categories_submenu']                      = 'Categorias';
+$lang['vl_categories_submenu']                      = 'Cursos';
 $lang['vl_add_video']                      = 'Adicionar vídeo';
 $lang['vl_edit_video']                      = 'Editar vídeo';
 $lang['vl_video_title']                      = 'Título';
 $lang['vl_video_file']                      = 'Vídeo';
 $lang['vl_video_description']                      = 'Descrição';
-$lang['vl_video_cate']                      = 'Categoria';
+$lang['vl_video_cate']                      = 'Curso';
 $lang['vl_video_not_deleted']                      = 'Vídeo não deletar!';
 $lang['vl_video_deleted']                      = 'Vídeo excluído!';
 $lang['new_study_library_added_alert']                      = 'Vídeo adicionado!';
 $lang['new_study_library_added_failed_alert']                      = 'Falha na adição de vídeo!';
 $lang['vl_projects']                      = 'Relacionado ao Projeto';
 $lang['study_library']                   = 'Biblioteca de vídeos';
-$lang['vl_add_category']                 = 'Adicionar categoria';
+$lang['vl_add_category']                 = 'Adicionar curso';
 ## version 101
 $lang['vl_driveurl_placeholder']          = 'Redirecionar uri Ex: https://your_domain/admin/study_library/uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = 'Digite sua chave secreta da unidade';
@@ -32,4 +32,3 @@ $lang['vl_input_option1']                     = 'Arquivo de vídeo';
 $lang['vl_input_option2']                     = 'URL do vídeo';
 $lang['vl_link_url']                     = 'URL';
 $lang['vl_credentials']                     = 'Suas credenciais atualizadas com sucesso';
-

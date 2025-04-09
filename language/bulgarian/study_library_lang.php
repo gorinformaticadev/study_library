@@ -15,7 +15,7 @@ $lang['vl_video_deleted']                      = 'Видеото е изтрит
 $lang['new_study_library_added_alert']                      = 'Видео е добавено!';
 $lang['new_study_library_added_failed_alert']                      = 'Добавянето на видеоклип не бе успешно!';
 $lang['vl_projects']                      = 'Свързано с проекта';
-$lang['vl_add_category']                      = 'Добавете категория';
+$lang['vl_add_category']                      = 'Добавете курс';
 ## version 101
 $lang['vl_driveurl_placeholder']          = 'Пренасочване на uri Пример: https://your_domain/admin/study_library/uploadFileGoogleDrive';
 $lang['vl_drivesecret_placeholder']          = 'Въведете секретния ключ за вашето устройство';
