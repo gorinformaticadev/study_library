@@ -26,8 +26,12 @@
           </div>
 
         </div>
-      </div>
+        </div>
     </div>
-  <?php echo form_close(); ?>
+     <div class="form-group">
+        <label for="category_image"><?php echo _l('vl_category_image'); ?></label>
+        <input type="file" name="category_image" id="category_image" class="form-control">
+    </div>
+    <?php echo form_close(); ?>
 </div>
 </div>

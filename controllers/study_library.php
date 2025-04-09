@@ -50,7 +50,9 @@ class study_library extends AdminController
         $data = array(
             'category' => $this->input->post('add_category'),
         );
-        if ($this->study_library_modal->add_category($data)) {
+        $category_id = $this->study_library_modal->add_category($data);
+        if ($category_id) {
+            handle_study_library_category_image_upload($category_id);
             echo true;
         } else {
             echo false;
@@ -59,7 +61,9 @@ class study_library extends AdminController
     public function update_category_data()
     {
         $data = $this->input->post();
+        $category_id = $data['id'];
         if ($this->study_library_modal->update_category_data($data)) {
+             handle_study_library_category_image_upload($category_id);
             echo true;
         } else {
             echo false;

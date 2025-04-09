@@ -361,3 +361,33 @@ function get_upload_thumbnail($id)
     $CI->db->where('id', $id);
     return $CI->db->get(db_prefix() . 'upload_video')->row();
 }
+
+function handle_study_library_category_image_upload($category_id = '')
+{
+    if (is_numeric($category_id)) {
+        $allowed_extensions = ['jpg','jpeg','gif','png','bmp'];
+        if (isset($_FILES['category_image']['name']) && $_FILES['category_image']['name'] != '') {
+            $path = get_upload_path_by_type('study_library');
+            $tmpFilePath = $_FILES['category_image']['tmp_name'];
+            if (!empty($tmpFilePath) && $tmpFilePath != '') {
+                $extension = strtolower(pathinfo($_FILES['category_image']['name'], PATHINFO_EXTENSION));
+                if (in_array($extension, $allowed_extensions)) {
+                    _maybe_create_upload_path($path);
+                    $filename    = unique_filename($path, $_FILES['category_image']['name']);
+                    $newFilePath = $path . $filename;
+                    if (move_uploaded_file($tmpFilePath, $newFilePath)) {
+                        $CI             = &get_instance();
+                        $CI->db->where('id', $category_id);
+                        $CI->db->update(db_prefix() . 'video_categories', [
+                            'category_image' => $filename,
+                        ]);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+    }
+
+    return false;
+}
