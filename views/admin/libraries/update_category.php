@@ -32,6 +32,21 @@
         <label for="category_image"><?php echo _l('vl_category_image'); ?></label>
         <input type="file" name="category_image" id="category_image" class="form-control">
     </div>
+    <div class="form-group">
+        <img id="category_image_preview" src="<?php echo site_url('modules/study_library/uploads/category/' . $edit_data[0]['category_image']); ?>" alt="Imagem da Categoria" style="max-width:200px; <?php echo ($edit_data[0]['category_image'] == '') ? 'display:none;' : ''; ?>">
+    </div>
     <?php echo form_close(); ?>
 </div>
 </div>
+<script>
+    document.getElementById("category_image").addEventListener("change", function() {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            document.getElementById("category_image_preview").src = e.target.result;
+            document.getElementById("category_image_preview").style.display = "block";
+        }
+
+        reader.readAsDataURL(this.files[0]);
+    });
+</script>
