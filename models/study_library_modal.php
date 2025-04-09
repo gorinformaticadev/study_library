@@ -10,6 +10,11 @@ class study_library_modal extends App_Model
         parent::__construct();
     }
 
+    /**
+     * Adiciona uma nova categoria de vídeo ao banco de dados.
+     * @param array $data Dados da categoria a ser adicionada.
+     * @return boolean True em caso de sucesso, false em caso de falha.
+     */
     public function add_category($data)
     {
         $query = $this->db->insert(db_prefix() . 'video_category', $data);
@@ -20,6 +25,10 @@ class study_library_modal extends App_Model
         }
     }
 
+    /**
+     * Exibe todas as categorias de vídeo do banco de dados.
+     * @return array|boolean Um array com os dados das categorias em caso de sucesso, false em caso de falha.
+     */
     public function show_category()
     {
         $category_data = $this->db->select('*')->from(db_prefix() . 'video_category')->order_by('id', 'desc')->get()->result_array();
@@ -29,6 +38,11 @@ class study_library_modal extends App_Model
             return false;
         }
     }
+    /**
+     * Realiza o upload de um vídeo, inserindo seus dados no banco de dados.
+     * @param array $data Dados do vídeo a ser adicionado.
+     * @return int ID do vídeo inserido.
+     */
     public function upload_video($data)
     {
         if (isset($data['link'])) {
@@ -39,6 +53,10 @@ class study_library_modal extends App_Model
         return $this->db->insert_id();
     }
 
+    /**
+     * Exibe todos os vídeos do banco de dados.
+     * @return array|boolean Um array com os dados dos vídeos em caso de sucesso, false em caso de falha.
+     */
     public function show_video()
     {
         $video_data = $this->db->select('*')->from(db_prefix() . 'upload_video')->order_by('id', 'desc')->get()->result_array();
@@ -49,6 +67,11 @@ class study_library_modal extends App_Model
         }
     }
 
+    /**
+     * Busca vídeos com base em título, categoria e ID do projeto.
+     * @param array $data Dados para a busca, incluindo título, categorias e ID do projeto.
+     * @return array Um array com os vídeos encontrados.
+     */
     public function search_title_category($data)
     {
         $this->db->select('*')->from(db_prefix() . 'upload_video');
@@ -66,6 +89,11 @@ class study_library_modal extends App_Model
         return $data;
     }
 
+    /**
+     * Busca vídeos com base no título.
+     * @param string $title Título do vídeo a ser buscado.
+     * @return array Um array com os vídeos encontrados.
+     */
     public function search_title($title)
     {
 
@@ -73,6 +101,11 @@ class study_library_modal extends App_Model
         return $data;
     }
 
+    /**
+     * Edita os dados de um vídeo específico.
+     * @param int $edit_id ID do vídeo a ser editado.
+     * @return object Retorna um objeto com os dados do vídeo.
+     */
     public function edit_video($edit_id)
     {
         $data = $this->db->select('*')->from(db_prefix() . 'upload_video')->where('id', $edit_id)->get()->row();
@@ -95,26 +128,29 @@ class study_library_modal extends App_Model
             }
         }
     }
-    public function update_video($video_data, $vdo_id)
-    {
-        $this->db->select('upload_video');
-        $this->db->where('id', $vdo_id);
-        $this->db->where('upload_type', 'link');
-        $contact = $this->db->get(db_prefix() . 'upload_video')->row();
-        if (!empty($video_data['link']) && !isset($contact)) {
-            $video_data['upload_video'] = $video_data['link'];
-            $this->db->where('id', $vdo_id);
-            $q = $this->db->update(db_prefix() . 'upload_video', ['upload_video' => $video_data['upload_video']]);
-            unset($video_data['link']);
-        }
-        $this->db->where('id', $vdo_id);
-        $q = $this->db->update(db_prefix() . 'upload_video', ['title' => $video_data['title'],'category' => $video_data['category'],'upload_type' => $video_data['upload_type'],'description' => $video_data['description'],'project_id' => $video_data['project_id']]);
-        if ($q) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    /*
+    * @params update video
+    */
+    // public function update_video($video_data, $vdo_id)
+    // {
+    //     $this->db->select('upload_video');
+    //     $this->db->where('id', $vdo_id);
+    //     $this->db->where('upload_type', 'link');
+    //     $contact = $this->db->get(db_prefix() . 'upload_video')->row();
+    //     if (!empty($video_data['link']) && !isset($contact)) {
+    //         $video_data['upload_video'] = $video_data['link'];
+    //         $this->db->where('id', $vdo_id);
+    //         $q = $this->db->update(db_prefix() . 'upload_video', ['upload_video' => $video_data['upload_video']]);
+    //         unset($video_data['link']);
+    //     }
+    //     $this->db->where('id', $vdo_id);
+    //     $q = $this->db->update(db_prefix() . 'upload_video', ['title' => $video_data['title'],'category' => $video_data['category'],'upload_type' => $video_data['upload_type'],'description' => $video_data['description'],'project_id' => $video_data['project_id']]);
+    //     if ($q) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     public function data_verify($data_id)
     {
@@ -127,23 +163,25 @@ class study_library_modal extends App_Model
     }
 
     //  Delete video 
-
-    public function delete_video($del_id)
-    {
-        $data = $this->db->get_where(db_prefix() . 'upload_video', ['id' => $del_id])->row();
-        if (isset($data) && !empty($data)) {
-            if (is_file(study_library_UPLOADS_FOLDER . $data->upload_video)) {
-                unlink(study_library_UPLOADS_FOLDER . $data->upload_video);
-            }
-        }
-        $this->db->where('id', $del_id);
-        $q = $this->db->delete(db_prefix() . 'upload_video');
-        if ($q) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    /*
+    * @params delete video
+    */
+    // public function delete_video($del_id)
+    // {
+    //     $data = $this->db->get_where(db_prefix() . 'upload_video', ['id' => $del_id])->row();
+    //     if (isset($data) && !empty($data)) {
+    //         if (is_file(study_library_UPLOADS_FOLDER . $data->upload_video)) {
+    //             unlink(study_library_UPLOADS_FOLDER . $data->upload_video);
+    //         }
+    //     }
+    //     $this->db->where('id', $del_id);
+    //     $q = $this->db->delete(db_prefix() . 'upload_video');
+    //     if ($q) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     // update category
     public function update_category($edit_id)
@@ -155,6 +193,7 @@ class study_library_modal extends App_Model
             return false;
         }
     }
+
     public function update_category_data($video_data)
     {
         //print_r($video_data); die;
@@ -169,26 +208,29 @@ class study_library_modal extends App_Model
         }
     }
 
-    public function delete_category($cat_id)
-    {
-        $data = $this->db->get_where(db_prefix() . 'upload_video', ['category' => $cat_id])->result_array();
-        if (isset($data) && !empty($data)) {
-            foreach ($data as $video) {
-                if (is_file(study_library_UPLOADS_FOLDER . $video->upload_video)) {
-                    unlink(study_library_UPLOADS_FOLDER . $video->upload_video);
-                }
-                $this->db->where('id', $video->id);
-                $this->db->delete(db_prefix() . 'upload_video');
-            }
-        }
-        $this->db->where('id', $cat_id);
-        $q = $this->db->delete(db_prefix() . 'video_category');
-        if ($q) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    /*
+    * @params delete category
+    */
+    // public function delete_category($cat_id)
+    // {
+    //     $data = $this->db->get_where(db_prefix() . 'upload_video', ['category' => $cat_id])->result_array();
+    //     if (isset($data) && !empty($data)) {
+    //         foreach ($data as $video) {
+    //             if (is_file(study_library_UPLOADS_FOLDER . $video->upload_video)) {
+    //                 unlink(study_library_UPLOADS_FOLDER . $video->upload_video);
+    //             }
+    //             $this->db->where('id', $video->id);
+    //             $this->db->delete(db_prefix() . 'upload_video');
+    //         }
+    //     }
+    //     $this->db->where('id', $cat_id);
+    //     $q = $this->db->delete(db_prefix() . 'video_category');
+    //     if ($q) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
     public function get_video_comments($id, $type)
     {
         $this->db->where('video_id', $id);

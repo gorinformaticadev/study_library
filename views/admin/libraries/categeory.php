@@ -1,5 +1,15 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
-<?php init_head(); ?>
+<?php
+/*
+* Definição para evitar acesso direto ao script.
+*/
+defined('BASEPATH') or exit('No direct script access allowed');
+?>
+<?php
+/*
+* Inclui o cabeçalho inicial do painel de administração.
+*/
+init_head();
+?>
 <div id="wrapper">
    <div class="content">
       <div class="row">
