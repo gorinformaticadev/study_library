@@ -33,7 +33,11 @@
         <input type="file" name="category_image" id="category_image" class="form-control">
     </div>
     <div class="form-group">
-        <img id="category_image_preview" src="<?php echo site_url('modules/study_library/uploads/category/' . $edit_data[0]['category_image']); ?>" alt="Imagem da Categoria" style="max-width:200px; <?php echo ($edit_data[0]['category_image'] == '') ? 'display:none;' : ''; ?>">
+        <?php
+        $category_image = $edit_data[0]['category_image'];
+        $image_path = !empty($category_image) ? site_url('modules/study_library/uploads/category/' . $category_image) : '';
+        ?>
+        <img id="category_image_preview" src="<?php echo $image_path; ?>" alt="Imagem da Categoria" style="max-width:200px; <?php echo (empty($category_image)) ? 'display:none;' : ''; ?>">
     </div>
     <?php echo form_close(); ?>
 </div>
@@ -43,8 +47,9 @@
         var reader = new FileReader();
 
         reader.onload = function(e) {
-            document.getElementById("category_image_preview").src = e.target.result;
-            document.getElementById("category_image_preview").style.display = "block";
+            var preview = document.getElementById("category_image_preview");
+            preview.src = e.target.result;
+            preview.style.display = "block";
         }
 
         reader.readAsDataURL(this.files[0]);
