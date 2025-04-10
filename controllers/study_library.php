@@ -58,15 +58,19 @@ class study_library extends AdminController
             echo false;
         }
     }
-    public function update_category_data()
-    {
+    public function update_category_data() {
+        if (!has_permission('study_library', '', 'edit')) {
+            echo json_encode(['success' => false, 'message' => 'Acesso negado']);
+            return;
+        }
+    
         $data = $this->input->post();
-        $category_id = $data['id'];
+        
         if ($this->study_library_modal->update_category_data($data)) {
-             handle_study_library_category_image_upload($category_id);
-            echo true;
+            handle_study_library_category_image_upload($data['id']);
+            echo json_encode(['success' => true]);
         } else {
-            echo false;
+            echo json_encode(['success' => false]);
         }
     }
 

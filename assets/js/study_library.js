@@ -57,35 +57,49 @@ function add_categeory_form() {
 function update_categeory_form() {
     var form = $('#update-category-form');
     var validationObject = {
-        update_category: 'required',
-
+        category: 'required'  // Corrigi o nome do campo para 'category' (deve bater com o name do input)
     };
+    
     appValidateForm(form, validationObject);
+    
     if (form.valid()) {
-        var formData = form.serialize();
+        var formData = new FormData(form[0]);  // Usar FormData para suportar upload de arquivos
+        
         $.ajax({
             type: "POST",
             url: admin_url + 'study_library/update_category_data',
             data: formData,
+            processData: false,  // Necessário para FormData
+            contentType: false,  // Necessário para FormData
             headers: {
                 'X-CSRF-Token': csrfData.formatted.csrf_token_name
             },
             success: function(resp) {
-                if (resp) {
-                    alert_float('success', 'Category Updated!');
+                if (resp.success) {  // Assumindo que o backend retorna {success: true}
+                    alert_float('success', 'Categoria atualizada!');
                     $("#edit_category_data").modal('hide');
+                    
+                    // Atualiza a página de categorias (3 opções):
+                    
+                    // 1. Recarrega a página completamente
+                    window.location.href = admin_url + 'study_library/categeory';
+                    
+                    // OU 2. Atualiza apenas o DataTable (se estiver usando)
+                    // $('.table-study_library').DataTable().ajax.reload();
+                    
+                    // OU 3. Atualiza os cards manualmente (se for o caso)
+                    // refreshCategories(); // Você precisaria implementar esta função
+                    
                 } else {
-                    alert_float('danger', 'Category Updation Failed');
-                    $("#edit_category_data").modal('hide');
+                    alert_float('danger', 'Falha ao atualizar categoria');
                 }
-                $('.table-study_library').DataTable().ajax.reload();
             },
-
+            error: function() {
+                alert_float('danger', 'Erro na comunicação com o servidor');
+            }
         });
-
     }
 }
-
 function add_video_data() {
     var form = $('#add_video_form');
     var validationObject = {
