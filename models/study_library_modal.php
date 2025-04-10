@@ -155,20 +155,34 @@ class study_library_modal extends App_Model
             return false;
         }
     }
-    public function update_category_data($video_data)
-    {
-        //print_r($video_data); die;
-        $id = $video_data['video_id'];
-        unset($video_data['video_id']);
-        $this->db->where('id', $id);
-        $q = $this->db->update(db_prefix() . 'video_category', $video_data);
-        if ($q) {
+    public function update_category_data($data) {
+        try {
+            // 1. Verificar dados obrigatórios
+            if (empty($data['id']) || empty($data['category'])) {
+                throw new Exception('Dados incompletos');
+            }
+    
+            // 2. Preparar dados para atualização
+            $updateData = [
+                'category' => trim($data['category']),
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+    
+            // 3. Executar atualização
+            $this->db->where('id', $data['id']);
+            $result = $this->db->update(db_prefix().'video_category', $updateData);
+    
+            // 4. Verificar resultado
+            if (!$result) {
+                throw new Exception($this->db->error()['message'] ?? 'Erro desconhecido');
+            }
+    
             return true;
-        } else {
+        } catch (Exception $e) {
+            log_message('error', 'Erro ao atualizar categoria: ' . $e->getMessage());
             return false;
         }
     }
-
     public function delete_category($cat_id)
     {
         $data = $this->db->get_where(db_prefix() . 'upload_video', ['category' => $cat_id])->result_array();

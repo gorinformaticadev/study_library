@@ -20,9 +20,13 @@
             </div>   
             <div class="col-md-4">
               <div class="form-group">
-                <button type="button" onclick="update_categeory_form();" class="btn btn-primary" style="margin-top: 25px;">Save </button>
-              </div>
-            </div>   
+              <button type="button" 
+        id="save-category-btn" 
+        onclick="update_category_form()" 
+        class="btn btn-primary" 
+        style="margin-top: 25px;">
+    <i class="fa fa-save"></i> Salvar
+</button>            </div>   
           </div>
 
         </div>

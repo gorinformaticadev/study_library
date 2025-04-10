@@ -9,7 +9,7 @@
                 <div class="row">
                    <div class="col-lg-12">
                       <div class="_buttons">
-                         <a href="#" onclick="init_add_categeory();" class="btn mright5 btn-info pull-left display-block">
+                         <a href="#" onclick="init_add_category();" class="btn mright5 btn-info pull-left display-block">
                            <?php echo _l('vl_add_category'); ?>
                         </a>
                       </div>

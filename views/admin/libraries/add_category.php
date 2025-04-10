@@ -1,4 +1,4 @@
-<div class="modal fade" id="add_library_categeory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="add_library_category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -14,7 +14,7 @@
           </div>   
           <div class="col-md-4">
             <div class="form-group">
-              <button type="button" onclick="add_categeory_form();" class="btn btn-primary" style="margin-top: 25px;">Save </button>
+              <button type="button" onclick="add_category_form();" class="btn btn-primary" style="margin-top: 25px;">Save </button>
             </div>
           </div>   
         </div>

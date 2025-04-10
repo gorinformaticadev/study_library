@@ -34,15 +34,15 @@ class study_library extends AdminController
         $this->app->get_table_data(module_views_path('study_library', 'admin/libraries/table/video_category_table'));
     }
 
-    public function categeory()
+    public function category()
     {
         $data['data_category'] = $this->study_library_modal->show_category();
-        $this->load->view('admin/libraries/categeory', $data);
+        $this->load->view('admin/libraries/category', $data);
     }
 
-    public function add_video_categeory()
+    public function add_video_category()
     {
-        $this->load->view('admin/libraries/add_categeory',);
+        $this->load->view('admin/libraries/add_category',);
     }
 
     public function add_category_data()
@@ -59,19 +59,48 @@ class study_library extends AdminController
         }
     }
     public function update_category_data() {
+        // 1. Verificar permissões
         if (!has_permission('study_library', '', 'edit')) {
-            echo json_encode(['success' => false, 'message' => 'Acesso negado']);
-            return;
+            return $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode([
+                    'success' => false,
+                    'message' => _l('access_denied')
+                ]));
         }
     
+        // 2. Obter dados
         $data = $this->input->post();
-        
-        if ($this->study_library_modal->update_category_data($data)) {
-            handle_study_library_category_image_upload($data['id']);
-            echo json_encode(['success' => true]);
-        } else {
-            echo json_encode(['success' => false]);
+        $categoryId = $data['id'] ?? null;
+    
+        // 3. Validar
+        if (empty($categoryId)) {
+            return $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode([
+                    'success' => false,
+                    'message' => 'ID da categoria inválido'
+                ]));
         }
+    
+        // 4. Atualizar no modelo
+        $result = $this->study_library_modal->update_category_data($data);
+    
+        // 5. Processar imagem se existir
+        if ($result && !empty($_FILES['category_image']['name'])) {
+            $imageResult = handle_study_library_category_image_upload($categoryId);
+            if (!$imageResult) {
+                log_message('error', 'Falha no upload da imagem');
+            }
+        }
+    
+        // 6. Responder
+        return $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode([
+                'success' => $result,
+                'message' => $result ? _l('updated_successfully') : _l('update_failed')
+            ]));
     }
 
 
@@ -302,7 +331,7 @@ class study_library extends AdminController
             $this->load->view('admin/libraries/update_category', $update_cate);
         } else {
             set_alert('danger', 'Access denied!');
-            redirect(admin_url('study_library/categeory'));
+            redirect(admin_url('study_library/category'));
         }
     }
     public function delete_category($cat_id)
@@ -310,10 +339,10 @@ class study_library extends AdminController
         if (has_permission('study_library', '', 'delete')) {
             if ($this->study_library_modal->delete_category($cat_id)) {
                 set_alert('success', 'Category deleted!');
-                redirect(admin_url('study_library/categeory'));
+                redirect(admin_url('study_library/category'));
             } else {
                 set_alert('success', 'Category deletion failed!');
-                redirect(admin_url('study_library/categeory'));
+                redirect(admin_url('study_library/category'));
             }
         } else {
             set_alert('danger', 'access denied!');

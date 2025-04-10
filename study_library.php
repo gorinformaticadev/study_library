@@ -95,7 +95,7 @@ function study_library_module_init_menu_items()
         $CI->app_menu->add_sidebar_children_item('study_library', [
             'slug'     => 'study_library_categeories',
             'name'     => _l('vl_categories_submenu'),
-            'href'     => admin_url('study_library/categeory'),
+            'href'     => admin_url('study_library/category'),
             'position' => 2,
         ]);
         $CI->app_tabs->add_project_tab('study_library', [

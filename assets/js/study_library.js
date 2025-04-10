@@ -13,10 +13,10 @@ function init_add_video() {
     })
 }
 
-function init_add_categeory() {
-    requestGet('study_library/add_video_categeory').done(function(response) {
+function init_add_category() {
+    requestGet('study_library/add_video_category').done(function(response) {
         $('#wrapper-modal').html(response);
-        $('#add_library_categeory').modal({
+        $('#add_library_category').modal({
             show: true,
             backdrop: 'static',
             keyboard: false
@@ -26,7 +26,7 @@ function init_add_categeory() {
     })
 }
 
-function add_categeory_form() {
+function add_category_form() {
     var form = $('#category_form');
     var validationObject = {
         add_category: 'required',
@@ -41,10 +41,10 @@ function add_categeory_form() {
             success: function(resp) {
                 if (resp) {
                     alert_float('success', 'Category Added');
-                    $("#add_library_categeory").modal('hide');
+                    $("#add_library_category").modal('hide');
                 } else {
                     alert_float('danger', 'Category Addtion Failed');
-                    $("#add_library_categeory").modal('hide');
+                    $("#add_library_category").modal('hide');
                 }
                 $('.table-study_library').DataTable().ajax.reload();
             },
@@ -54,50 +54,74 @@ function add_categeory_form() {
     }
 }
 
-function update_categeory_form() {
+function update_category_form() {
+    // 1. Obter o formulário
     var form = $('#update-category-form');
-    var validationObject = {
-        category: 'required'  // Corrigi o nome do campo para 'category' (deve bater com o name do input)
+    
+    // 2. Configurar validação
+    var validationRules = {
+        category: {
+            required: true,
+            minlength: 2
+        }
     };
     
-    appValidateForm(form, validationObject);
+    // 3. Aplicar validação
+    appValidateForm(form, validationRules);
     
+    // 4. Verificar se o formulário é válido
     if (form.valid()) {
-        var formData = new FormData(form[0]);  // Usar FormData para suportar upload de arquivos
+        // 5. Criar FormData (suporta arquivos)
+        var formData = new FormData(form[0]);
         
+        // 6. Adicionar token CSRF
+        formData.append(csrfData.formatted.csrf_token_name, csrfData.formatted.csrf_hash);
+        
+        // 7. Mostrar loading (opcional)
+        $('#save-category-btn').prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Salvando...');
+        
+        // 8. Enviar via AJAX
         $.ajax({
             type: "POST",
             url: admin_url + 'study_library/update_category_data',
             data: formData,
-            processData: false,  // Necessário para FormData
-            contentType: false,  // Necessário para FormData
-            headers: {
-                'X-CSRF-Token': csrfData.formatted.csrf_token_name
-            },
-            success: function(resp) {
-                if (resp.success) {  // Assumindo que o backend retorna {success: true}
-                    alert_float('success', 'Categoria atualizada!');
-                    $("#edit_category_data").modal('hide');
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                // 9. Tratar resposta
+                if (response.success) {
+                    alert_float('success', response.message || 'Categoria atualizada!');
                     
-                    // Atualiza a página de categorias (3 opções):
+                    // 10. Fechar modal e atualizar
+                    $('#edit_category_data').modal('hide');
                     
-                    // 1. Recarrega a página completamente
-                    window.location.href = admin_url + 'study_library/categeory';
+                    // 11. Atualizar a view (3 opções):
+                    // Opção A) Recarregar a página
+                    window.location.reload();
                     
-                    // OU 2. Atualiza apenas o DataTable (se estiver usando)
-                    // $('.table-study_library').DataTable().ajax.reload();
+                    // Opção B) Recarregar DataTable
+                    // if (typeof $('.table-study_library').DataTable() !== 'undefined') {
+                    //     $('.table-study_library').DataTable().ajax.reload(null, false);
+                    // }
                     
-                    // OU 3. Atualiza os cards manualmente (se for o caso)
-                    // refreshCategories(); // Você precisaria implementar esta função
-                    
+                    // Opção C) Atualizar cards manualmente
+                    // refreshCategoryCards();
                 } else {
-                    alert_float('danger', 'Falha ao atualizar categoria');
+                    showError(response.message || 'Erro ao atualizar');
                 }
             },
-            error: function() {
-                alert_float('danger', 'Erro na comunicação com o servidor');
+            error: function(xhr) {
+                showError(xhr.responseJSON?.message || 'Erro na conexão');
+            },
+            complete: function() {
+                $('#save-category-btn').prop('disabled', false).html('Salvar');
             }
         });
+    }
+    
+    function showError(msg) {
+        alert_float('danger', msg);
+        console.error('Erro:', msg);
     }
 }
 function add_video_data() {
@@ -126,7 +150,7 @@ function add_video_data() {
                 console.log(resp);
                 if (resp) {
                     alert_float('success', 'Category Added');
-                    $("#add_library_categeory .close").click()
+                    $("#add_library_category .close").click()
                 } else {
                     alert_float('danger', 'Category Addtion Failed');
                 }
