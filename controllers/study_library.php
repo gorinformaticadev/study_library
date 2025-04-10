@@ -4,12 +4,20 @@ class study_library extends AdminController
 {
     private $googleOauthURL = '';
     private $access_token = '';
+    private $videoController;
+    private $categoryController;
+
     public function __construct()
     {
         parent::__construct();
         $this->app_scripts->add('library-js', module_dir_url('study_library', '/assets/js/study_library.js'));
         $this->load->model('study_library_modal');
         $this->load->library('GoogleDriveApi');
+        
+        // Inicializa os controladores
+        $this->videoController = new VideoController();
+        $this->categoryController = new CategoryController();
+
         // Google OAuth URL 
         $this->googleOauthURL = 'https://accounts.google.com/o/oauth2/auth?scope=' . urlencode(GOOGLE_OAUTH_SCOPE) . '&redirect_uri=' . REDIRECT_URI . '&response_type=code&client_id=' . GOOGLE_CLIENT_ID . '&access_type=online';
     }
