@@ -169,8 +169,9 @@ class study_library_modal extends App_Model
             ];
     
             // 3. Executar atualização
-            $this->db->where('id', $data['id']);
-            $result = $this->db->update(db_prefix().'video_category', $updateData);
+            // $this->db->where('id', $data['id']);
+            $this->db->where('id', $cat_id);
+            $q = $this->db->delete(db_prefix() . 'video_category');
     
             // 4. Verificar resultado
             if (!$result) {
