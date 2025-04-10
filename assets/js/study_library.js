@@ -55,74 +55,31 @@ function add_category_form() {
 }
 
 function update_category_form() {
-    // 1. Obter o formulário
     var form = $('#update-category-form');
     
-    // 2. Configurar validação
-    var validationRules = {
-        category: {
-            required: true,
-            minlength: 2
-        }
-    };
+    // Verifica se o ID existe no formulário
+    if (!form.find('input[name="id"]').val()) {
+        alert_float('danger', 'ID da categoria não encontrado');
+        return false;
+    }
+
+    var formData = new FormData(form[0]);
+    formData.append('id', form.find('input[name="id"]').val()); // Força o envio do ID
     
-    // 3. Aplicar validação
-    appValidateForm(form, validationRules);
-    
-    // 4. Verificar se o formulário é válido
-    if (form.valid()) {
-        // 5. Criar FormData (suporta arquivos)
-        var formData = new FormData(form[0]);
-        
-        // 6. Adicionar token CSRF
-        formData.append(csrfData.formatted.csrf_token_name, csrfData.formatted.csrf_hash);
-        
-        // 7. Mostrar loading (opcional)
-        $('#save-category-btn').prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Salvando...');
-        
-        // 8. Enviar via AJAX
-        $.ajax({
-            type: "POST",
-            url: admin_url + 'study_library/update_category_data',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                // 9. Tratar resposta
-                if (response.success) {
-                    alert_float('success', response.message || 'Categoria atualizada!');
-                    
-                    // 10. Fechar modal e atualizar
-                    $('#edit_category_data').modal('hide');
-                    
-                    // 11. Atualizar a view (3 opções):
-                    // Opção A) Recarregar a página
-                    window.location.reload();
-                    
-                    // Opção B) Recarregar DataTable
-                    // if (typeof $('.table-study_library').DataTable() !== 'undefined') {
-                    //     $('.table-study_library').DataTable().ajax.reload(null, false);
-                    // }
-                    
-                    // Opção C) Atualizar cards manualmente
-                    // refreshCategoryCards();
-                } else {
-                    showError(response.message || 'Erro ao atualizar');
-                }
-            },
-            error: function(xhr) {
-                showError(xhr.responseJSON?.message || 'Erro na conexão');
-            },
-            complete: function() {
-                $('#save-category-btn').prop('disabled', false).html('Salvar');
+    $.ajax({
+        url: admin_url + 'study_library/update_category_data',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if(response.success) {
+                window.location.href = admin_url + 'study_library/categeory';
+            } else {
+                alert_float('danger', response.message || 'Erro ao atualizar');
             }
-        });
-    }
-    
-    function showError(msg) {
-        alert_float('danger', msg);
-        console.error('Erro:', msg);
-    }
+        }
+    });
 }
 function add_video_data() {
     var form = $('#add_video_form');

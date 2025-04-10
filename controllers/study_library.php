@@ -59,48 +59,21 @@ class study_library extends AdminController
         }
     }
     public function update_category_data() {
-        // 1. Verificar permissões
-        if (!has_permission('study_library', '', 'edit')) {
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode([
-                    'success' => false,
-                    'message' => _l('access_denied')
-                ]));
+        // Log dos dados recebidos
+        log_message('error', 'Dados POST: '.print_r($_POST, true));
+        log_message('error', 'Dados FILES: '.print_r($_FILES, true));
+    
+        if(empty($this->input->post('id'))) {
+            $response = [
+                'success' => false,
+                'message' => 'ID não recebido no formulário',
+                'received_data' => $this->input->post()
+            ];
+            log_message('error', 'ID não recebido: '.print_r($response, true));
+            return $this->output->set_content_type('application/json')->set_output(json_encode($response));
         }
-    
-        // 2. Obter dados
-        $data = $this->input->post();
-        $categoryId = $data['id'] ?? null;
-    
-        // 3. Validar
-        if (empty($categoryId)) {
-            return $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode([
-                    'success' => false,
-                    'message' => 'ID da categoria inválido'
-                ]));
-        }
-    
-        // 4. Atualizar no modelo
-        $result = $this->study_library_modal->update_category_data($data);
-    
-        // 5. Processar imagem se existir
-        if ($result && !empty($_FILES['category_image']['name'])) {
-            $imageResult = handle_study_library_category_image_upload($categoryId);
-            if (!$imageResult) {
-                log_message('error', 'Falha no upload da imagem');
-            }
-        }
-    
-        // 6. Responder
-        return $this->output
-            ->set_content_type('application/json')
-            ->set_output(json_encode([
-                'success' => $result,
-                'message' => $result ? _l('updated_successfully') : _l('update_failed')
-            ]));
+        
+        // Restante da sua lógica...
     }
 
 

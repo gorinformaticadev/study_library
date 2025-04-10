@@ -11,7 +11,7 @@
           <div class="card-body">
             <div id="response"> </div>
             <div class="row">
-             <?php echo form_hidden('video_id', $edit_data[0]['id']); ?>
+            <?php echo form_hidden('id', $edit_data[0]['id']); ?>
              <div class="col-md-8">
               <div class="form-group">
                 <label for="category">Edit Category:</label>
