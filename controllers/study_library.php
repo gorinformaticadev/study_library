@@ -292,13 +292,13 @@ class study_library extends AdminController
             set_alert('danger', 'access denied!');
         }
     }
-    public function edit_category_data($edit_id)
-    {
+    public function edit_category_data($edit_id) {
         if (has_permission('study_library', '', 'edit')) {
             $update_cate['edit_data'] = $this->study_library_modal->update_category($edit_id);
             $this->load->view('admin/libraries/update_category', $update_cate);
         } else {
-            set_alert('danger', 'access denied!');
+            set_alert('danger', 'Access denied!');
+            redirect(admin_url('study_library/categeory'));
         }
     }
     public function delete_category($cat_id)
